@@ -1,0 +1,39 @@
+"use client";
+import { formatPrice } from '@/lib/format';
+import { Button } from '../ui/button';
+import { useState } from 'react';
+import axios from 'axios';
+
+interface CourseEnrollButtonProps {
+    price : number;
+    courseId: string
+}
+
+export const CourseEnrollButton = ({
+    courseId,
+    price
+} : CourseEnrollButtonProps) => {
+
+    const [loading, setLoading] = useState(false);
+
+    const onClick = async()=>{
+        try {
+            setLoading(true);
+            await axios.post(`/api/courses/${courseId}/checkout`)
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false)
+        }
+    }
+    
+    return (
+        <Button
+            className='h-14 bg-violet-600 hover:bg-violet-700/90 rounded-none'
+            onClick={onClick}
+            disabled = {loading}
+        >
+            Enroll for {formatPrice(price)}
+        </Button>
+    )
+}
