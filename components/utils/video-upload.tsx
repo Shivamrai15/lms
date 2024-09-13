@@ -64,7 +64,15 @@ export const VideoUpload = ({
                     ))
                 }
             </div>
-            <CldUploadWidget onSuccess={onUpload} uploadPreset="f3ytpcsd">
+            <CldUploadWidget
+                onSuccess={onUpload}
+                uploadPreset="f3ytpcsd"
+                options={{
+                    clientAllowedFormats : ["mp4"],
+                    folder : "lms",
+                    resourceType : "video",
+                }}
+            >
                 { ({open}) => {
                     const onClick = ()=>{
                         open();

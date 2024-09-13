@@ -38,7 +38,7 @@ export const CourseTutorCard = ({
                 }
             </div>
             <div className="space-y-2 px-2 pb-2">
-                <h2 className="text-zinc-700 font-medium">{course.title}</h2>
+                <h2 className="text-zinc-700 font-medium text-sm">{course.title}</h2>
                 <Badge>
                     {
                         course.isPublished ? "Published" : "Unpublished"

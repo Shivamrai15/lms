@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/providers/theme.provider";
-import { Header } from "@/components/utils/header";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "sonner";
+import { NavigateProvider } from "@/providers/navigate.provider";
+import { EdgeStoreProvider } from "@/providers/edgestore.provider";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -31,21 +31,16 @@ export default async function RootLayout({
                 <SessionProvider
                     session={session}
                 >
-                    <ThemeProvider
-                        attribute="class"
-                        defaultTheme="light"
-                        enableSystem
-                        disableTransitionOnChange
-                    >
+                    <EdgeStoreProvider>
                         <Toaster
                             position="top-center"
                             richColors={true}
                         />
-                        <div className="h-full overflow-y-auto">
-                            <Header/>
-                            {children}
-                        </div>
-                    </ThemeProvider>
+                        <NavigateProvider
+                            session = { session }
+                        />
+                        {children}
+                    </EdgeStoreProvider>
                 </SessionProvider>
             </body>
         </html>

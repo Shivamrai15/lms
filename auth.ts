@@ -37,7 +37,12 @@ export const {
 
             if (token.role && session.user) {
                 session.user.role = token.role as Role;
-            }
+            } 
+
+            if (token.profile && session.user) {
+                session.user.profile = token.profile as boolean;
+            } 
+
             return session;
         },
         async jwt({ token }) {
@@ -47,6 +52,7 @@ export const {
             token.name = existingUser.name;
             token.email = existingUser.email;
             token.role = existingUser.role;
+            token.profile = !!existingUser.profile
             return token;
         }
     },

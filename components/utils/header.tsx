@@ -1,10 +1,13 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { UserAvatar } from "@/components/account/user-avatar";
+
+
+
 
 export const Header = () => {
 
@@ -47,10 +50,7 @@ export const Header = () => {
                                     </Button>
                                 )
                             }
-                            <Avatar>
-                                <AvatarImage src={session.data?.user.image||""} />
-                                <AvatarFallback>{session.data?.user.name?.charAt(0)}</AvatarFallback>
-                            </Avatar>
+                            <UserAvatar/>
                         </div>
                     )
                 }

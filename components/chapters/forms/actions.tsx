@@ -1,5 +1,6 @@
 "use client"
 
+import { AlertDelete } from "@/components/modals/delete-alert.modal";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { Trash } from "lucide-react";
@@ -45,8 +46,9 @@ export const Actions = ({
     const onDelete = async()=>{
         try {
             setLoading(true);
-            const resposne = await axios.delete(`/api/courses/${courseId}/chapters/${chapterId}`);
+            await axios.delete(`/api/courses/${courseId}/chapters/${chapterId}`);
             toast.success("Chapter has been deleted successfully");
+            router.refresh();
             router.push(`/tutor/courses/${courseId}`)
         } catch (error) {
             console.log(error);
@@ -67,13 +69,10 @@ export const Actions = ({
             >
                 { isPublished ? "Unpublish" : "Publish"}
             </Button>
-            <Button
-                size="sm"
-                onClick={onDelete}
-                disabled = {loading}
-            >
-                <Trash className="h-4 w-4"/>
-            </Button>
+            <AlertDelete
+                disabled={loading}
+                onConfirm={onDelete}
+            />
         </div>
     )
 }

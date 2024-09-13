@@ -1,5 +1,6 @@
 "use client"
 
+import { AlertDelete } from "@/components/modals/delete-alert.modal";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { Trash } from "lucide-react";
@@ -63,13 +64,10 @@ export const Actions = ({
             >
                 { isPublished ? "Unpublish" : "Publish"}
             </Button>
-            <Button
-                size="sm"
-                onClick={onDelete}
-                disabled = {loading}
-            >
-                <Trash className="h-4 w-4"/>
-            </Button>
+            <AlertDelete
+                onConfirm={onDelete}
+                disabled={loading}
+            />
         </div>
     )
 }

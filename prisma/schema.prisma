@@ -4,7 +4,7 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch"]
 }
 
@@ -161,6 +161,7 @@ model Chapter {
   notes        Note[]
   history      History[]
   courseId     String
+  quiz         Quiz?
   course       Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
@@ -236,10 +237,12 @@ model History {
 
 model Quiz {
   id                   String         @id @default(uuid())
-  chapterId            String         @unique
+  isPublished          Boolean        @default(false)
   requiredPassingScore Int            @default(0)
   questions            QuizQuestion[]
   result               QuizResult[]
+  chapterId            String         @unique
+  chapter              Chapter        @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -248,13 +251,12 @@ model Quiz {
 }
 
 model QuizQuestion {
-  id              String   @id @default(uuid())
-  question        String   @db.Text
-  postion         Int      @default(autoincrement())
-  correctOptionId String
-  options         Option[]
-  quizId          String
-  quiz            Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  id       String   @id @default(uuid())
+  question String   @db.Text
+  position  Int      @default(autoincrement())
+  options  Option[]
+  quizId   String
+  quiz     Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -263,8 +265,10 @@ model QuizQuestion {
 model Option {
   id         String       @id @default(uuid())
   answer     String       @db.Text
+  isCorrect  Boolean      @default(false)
   questionId String
   question   QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
 }
 
 model QuizResult {

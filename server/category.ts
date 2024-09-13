@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 export const getAllCategories = async () => {
     try {
         
-        const categories = await db.category.findMany({
+        const categories = await db.subCategory.findMany({
             orderBy : {
                 name : "asc"
             },

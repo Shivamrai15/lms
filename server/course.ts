@@ -15,7 +15,11 @@ export const getCourseById = async(id: string)=> {
                         position : "asc" 
                     }
                 },
-                category : true
+                subCategory : {
+                    include : {
+                        category : true
+                    }
+                }
             }
         });
 
@@ -35,14 +39,15 @@ export const getCourseByPublicId = async(id: string)=> {
             },
             include : {
                 chapters : {
-                    where : {
-                        isPublished : true
-                    },
                     orderBy : {
                         position : "asc" 
                     }
                 },
-                category : true
+                subCategory : {
+                    include : {
+                        category : true
+                    }
+                }
             }
         });
 

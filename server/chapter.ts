@@ -12,11 +12,12 @@ export const getChapterById = async(chapterId: string, courseId: string)=>{
                 courseId: courseId
             },
             include : {
-                muxData : true
+                attachments: true,
+                quiz : true
             }
         });
 
-        return chapter
+        return chapter;
 
     } catch (error) {
         return null;
@@ -109,5 +110,50 @@ export const getChapter = async({
             userProgress: null,
             purchase : null,
         }
+    }
+}
+
+
+export const getQuiz = async(courseId: string, userId: string, chapterId: string)=>{
+    try {
+        
+        const course = await db.course.findUnique({
+            where : {
+                id : courseId,
+                tutorId : userId
+            },
+            select : {
+                id : true
+            }
+        });
+
+        if (!course) {
+            return null;
+        }
+
+        const quiz = await db.quiz.findUnique({
+            where : {
+                chapterId
+            },
+            include : {
+                questions : {
+                    include : {
+                        options : {
+                            orderBy : {
+                                createdAt : "asc"
+                            }
+                        }
+                    },
+                    orderBy : {
+                        position : "asc"
+                    }
+                }
+            }
+        });
+
+        return quiz;
+
+    } catch (error) {
+        return null 
     }
 }

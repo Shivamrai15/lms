@@ -20,7 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Pencil, PlusCircle, VideoIcon } from "lucide-react";
-import { Chapter, MuxData } from "@prisma/client";
+import { Chapter } from "@prisma/client";
 import { VideoUpload } from "@/components/utils/video-upload";
 
 const VideoSchema = z.object({
@@ -28,7 +28,7 @@ const VideoSchema = z.object({
 });
 
 interface VideoFormProps {
-    initialData : Chapter & { muxData : MuxData|null }
+    initialData : Chapter
     courseId : string;
     chapterId: string;
 }
