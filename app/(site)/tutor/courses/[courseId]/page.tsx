@@ -14,6 +14,8 @@ import { PriceForm } from "@/components/courses/forms/price.form";
 import { ChaptersForm } from "@/components/courses/forms/chapters.form";
 import { Banner } from "@/components/utils/banner";
 import { Actions } from "@/components/courses/actions/actions";
+import { ShortDescriptionForm } from "@/components/courses/forms/short-description.form";
+import { CouponForm } from "@/components/courses/forms/coupon.form";
 
 
 interface CoursePageProps {
@@ -47,6 +49,7 @@ const CoursePage = async({
         course.description,
         course.price,
         course.subCategoryId,
+        course.shortDescription,
         course.chapters.some((chapter)=>chapter.isPublished)
     ];
 
@@ -75,6 +78,7 @@ const CoursePage = async({
                     <Actions
                         courseId={params.courseId}
                         isPublished = {course.isPublished}
+                        disabled = {totalFields!==completedFields}
                     />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-x-12 mt-16">
@@ -86,6 +90,10 @@ const CoursePage = async({
                             </h2>
                         </div>
                         <TitleForm
+                            initialData = {course}
+                            courseId = {course.id}
+                        />
+                        <ShortDescriptionForm
                             initialData = {course}
                             courseId = {course.id}
                         />
@@ -127,6 +135,10 @@ const CoursePage = async({
                                 </h2>
                             </div>
                             <PriceForm
+                                initialData = {course}
+                                courseId = {course.id}
+                            />
+                            <CouponForm
                                 initialData = {course}
                                 courseId = {course.id}
                             />

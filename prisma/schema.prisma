@@ -97,28 +97,44 @@ model VerificationToken {
 }
 
 model Course {
-  id            String       @id @default(uuid())
-  title         String       @db.Text
-  description   String?      @db.Text
-  image         String?      @db.Text
-  price         Float?
-  isPublished   Boolean      @default(false)
-  tags          String[]
-  tutorId       String
-  tutor         User         @relation(fields: [tutorId], references: [id], onDelete: Cascade)
-  subCategoryId String?
-  subCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
-  chapters      Chapter[]
-  purchases     Purchase[]
-  certificate   Cerificate[]
-  cartItems     CartItems[]
-  ratings       Rate[]
+  id               String       @id @default(uuid())
+  title            String       @db.Text
+  shortDescription String?      @db.Text
+  description      String?      @db.Text
+  image            String?      @db.Text
+  price            Float?
+  coupons          Coupon[]
+  isPublished      Boolean      @default(false)
+  tutorId          String
+  tutor            User         @relation(fields: [tutorId], references: [id], onDelete: Cascade)
+  subCategoryId    String?
+  subCategory      SubCategory? @relation(fields: [subCategoryId], references: [id])
+  chapters         Chapter[]
+  purchases        Purchase[]
+  certificate      Cerificate[]
+  cartItems        CartItems[]
+  ratings          Rate[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([tutorId])
   @@index([subCategoryId])
+}
+
+model Coupon {
+  id       String   @id @default(uuid())
+  coupon   String
+  discount Float
+  courseId String
+  course   Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  expires  DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([courseId, coupon])
+  @@index([courseId])
 }
 
 model Category {
@@ -253,7 +269,7 @@ model Quiz {
 model QuizQuestion {
   id       String   @id @default(uuid())
   question String   @db.Text
-  position  Int      @default(autoincrement())
+  position Int      @default(autoincrement())
   options  Option[]
   quizId   String
   quiz     Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
@@ -268,7 +284,7 @@ model Option {
   isCorrect  Boolean      @default(false)
   questionId String
   question   QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
+  createdAt  DateTime     @default(now())
 }
 
 model QuizResult {

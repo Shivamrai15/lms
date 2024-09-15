@@ -19,6 +19,11 @@ export const getCourseById = async(id: string)=> {
                     include : {
                         category : true
                     }
+                },
+                coupons : {
+                    orderBy : {
+                        createdAt : "asc"
+                    }
                 }
             }
         });

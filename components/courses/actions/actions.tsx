@@ -11,10 +11,12 @@ import { toast } from "sonner";
 interface ActionsProps {
     courseId : string;
     isPublished : boolean;
+    disabled : boolean
 }
 export const Actions = ({
     courseId,
-    isPublished
+    isPublished,
+    disabled
 } : ActionsProps) => {
 
     const router = useRouter();
@@ -58,7 +60,7 @@ export const Actions = ({
         <div className="flex items-center gap-x-2">
             <Button
                 onClick={onClick}
-                disabled={loading}
+                disabled={loading || disabled}
                 variant="outline"
                 size="sm"
             >
