@@ -1,8 +1,10 @@
 "use client";
 
+import dynamic from "next/dynamic";
+import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import * as z from "zod";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -17,10 +19,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Pencil } from "lucide-react";
-import { useState } from "react";
 import { DescriptionSchema } from "@/schemas/description.schema";
 import { cn } from "@/lib/utils";
-import { Editor } from "../../utils/editor";
+
 
 
 interface DescriptionFormProps {
@@ -35,6 +36,9 @@ export const DescriptionForm = ({
     courseId
 } : DescriptionFormProps) => {
 
+
+    const Editor = useMemo(()=>dynamic(()=>import("@/components/utils/editor"), {ssr:false}), []);
+    const Preview = useMemo(()=>dynamic(()=>import("@/components/utils/preview"), {ssr:false}), []);
     const router = useRouter();
     const [isEditing, setEditing] = useState(false);
     const toggleEdit = ()=>setEditing((prev)=>!prev);
@@ -89,9 +93,7 @@ export const DescriptionForm = ({
                     )}>
                         {
                             initialData.description ? (
-                            <div
-                                dangerouslySetInnerHTML={{ __html: initialData.description }}
-                            />
+                            <Preview value={initialData.description}  />
                         ) : "Description is not available"}
                     </div>
                 ) : (

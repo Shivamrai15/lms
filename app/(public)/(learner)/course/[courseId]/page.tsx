@@ -26,12 +26,6 @@ const CoursePage = async({
 
     return (
         <main className="w-full pb-6">
-            <Header
-                course={course}
-                tutor={tutor}
-            />
-            <Chapters chapters = {course.chapters} />
-            <Description description={course.description!} />
         </main>
     )
 }

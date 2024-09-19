@@ -1,26 +1,33 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { useMemo } from "react";
-import 'react-quill/dist/quill.snow.css';
+import { useCreateBlockNote } from "@blocknote/react";
+import { BlockNoteView } from "@blocknote/mantine";
+import "@blocknote/core/fonts/inter.css";
+import "@blocknote/mantine/style.css";
 
 interface EditorProps {
     onChange : ( value: string )=>void;
     value: string;   
 }
 
-export const Editor = ({
+const Editor = ({
     onChange,
     value
 } : EditorProps ) => {
 
-    const ReactQuill = useMemo(()=>dynamic(()=>import("react-quill"), {ssr:false}), []);
+    const editor = useCreateBlockNote({
+        initialContent : value ? JSON.parse(value) : undefined,
+    });
 
     return (
-        <ReactQuill
-            theme="snow"
-            onChange={onChange}
-            value={value}
-        />
+        <div className="min-h-60 h-auto bg-white">
+            <BlockNoteView
+                editor={editor}
+                theme="light"
+                onChange={()=>onChange(JSON.stringify(editor.document, null, 2))}
+            />
+        </div>
     )
 }
+
+export default Editor;

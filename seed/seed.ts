@@ -74,6 +74,7 @@ async function main () {
         const catRes = await database.category.findMany({});
 
         await Promise.all(subcategories.map(async(sub)=>{
+            // @ts-ignore
             const cat = catRes.find((cat)=>cat.name === sub.name);
             if (cat) {
 

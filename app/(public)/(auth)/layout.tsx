@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Header } from "@/components/utils/header";
 
 interface AuthLayoutProps {
     children : React.ReactNode;
@@ -8,8 +9,9 @@ const AuthLayout = ({
     children
 } : AuthLayoutProps ) => {
     return (
-        <main className="min-h-[calc(100%-5rem)] flex items-center justify-center px-6">
-            <section className="max-w-5xl w-full py-10">
+        <main className="h-full overflow-y-auto">
+            <Header variant="default" />
+            <section className="min-h-[calc(100%-5rem)] mx-auto max-w-5xl w-full py-10">
                 <div className="grid md:grid-cols-2 gap-16">
                     <div className="w-full aspect-square relative flex items-center justify-center">
                         <Image

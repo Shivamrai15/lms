@@ -15,12 +15,14 @@ import {
     AvatarImage
 } from "@/components/ui/avatar";
 import { GraduationCap, LogOut, ShoppingBag, User } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export const UserAvatar = () => {
     
     const session = useSession();
     const router = useRouter();
+    const pathname = usePathname();
     
     return (
         <DropdownMenu>
@@ -30,9 +32,9 @@ export const UserAvatar = () => {
                     <AvatarFallback>{session.data?.user.name?.charAt(0)}</AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-60 rounded-none border border-zinc-400 pb-4 space-y-1" align="end" >
+            <DropdownMenuContent className="w-60 md:w-72 rounded-none border border-zinc-400 pb-4" align="end" >
                 <div className="p-3 flex items-center gap-x-3">
-                    <Avatar className="h-16 w-16">
+                    <Avatar className="h-12 w-12">
                         <AvatarImage src={session.data?.user.image||""} />
                         <AvatarFallback>{session.data?.user.name?.charAt(0)}</AvatarFallback>
                     </Avatar>
@@ -43,28 +45,35 @@ export const UserAvatar = () => {
                 </div>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                    className="rounded-none font-medium text-zinc-700"
+                    className="rounded-none font-medium text-zinc-700 py-2"
                     onClick={()=>router.push("/profile")}
                 >
                     <User className="mr-3 h-5 w-5" />
                     <span>Profile</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                    className="rounded-none font-medium text-zinc-700"
-                    onClick={()=>router.push("/orders")}
+                    className={cn(
+                        "rounded-none font-medium text-zinc-700 py-2",
+                        pathname.includes("/tutor/courses") && "hidden"
+                    )}
+                    onClick={()=>router.push("/orders/courses")}
+                    
                 >
                     <GraduationCap className="mr-3 h-5 w-5" />
                     <span>My Courses</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                    className="rounded-none font-medium text-zinc-700"
+                    className={cn(
+                        "rounded-none font-medium text-zinc-700 py-2",
+                        pathname.includes("/tutor/courses") && "hidden"
+                    )}
                     onClick={()=>router.push("/orders")}
                 >
                     <ShoppingBag className="mr-3 ml-0.5 h-4 w-4" />
                     <span>Cart</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                    className="rounded-none font-medium text-zinc-700"
+                    className="rounded-none font-medium text-zinc-700 py-2"
                     onClick={async()=>{
                         await signOut();
                     }}

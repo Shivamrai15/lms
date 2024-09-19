@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.4.2",
+    "@blocknote/core": "^0.15.7",
+    "@blocknote/mantine": "^0.15.7",
+    "@blocknote/react": "^0.15.7",
     "@edgestore/react": "^0.2.2",
     "@edgestore/server": "^0.2.2",
     "@hello-pangea/dnd": "^16.6.0",

@@ -7,7 +7,7 @@ import {
     AccordionTrigger,
   } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import { Preview } from "@/components/utils/preview";
+import Preview from "@/components/utils/preview";
 import { Chapter } from "@prisma/client";
 import { VideoIcon } from "lucide-react";
 

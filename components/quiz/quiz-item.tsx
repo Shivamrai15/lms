@@ -112,7 +112,7 @@ export const QuizItem = ({
                 />
                 <div className="flex flex-col gap-y-2 w-full">
                     {options.map((option, index)=>(
-                        <div className="flex items-center justify-between gap-x-4">
+                        <div className="flex items-center justify-between gap-x-4" key={option.id}>
                             <QuizOption
                                 option={option}
                                 chapterId={chapterId}

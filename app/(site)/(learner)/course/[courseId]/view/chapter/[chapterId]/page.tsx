@@ -1,11 +1,11 @@
 import { auth } from "@/auth";
-import { Separator } from "@/components/ui/separator";
+import { redirect } from "next/navigation";
+import { VideoPlayer } from "@/components/utils/video-player";
+
+import Preview from "@/components/utils/preview";
 import { Banner } from "@/components/utils/banner";
 import { CourseEnrollButton } from "@/components/utils/course-enroll-button";
-import { Preview } from "@/components/utils/preview";
-import { VideoPlayer } from "@/components/utils/video-player";
 import { getChapter } from "@/server/chapter";
-import { redirect } from "next/navigation";
 
 interface ChapterPageProps {
     params : {

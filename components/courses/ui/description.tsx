@@ -1,4 +1,4 @@
-import { Preview } from "@/components/utils/preview";
+import Preview from "@/components/utils/preview";
 
 interface DescriptionProps {
     description : string;
