@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { UserAvatar } from "@/components/account/user-avatar";
 import { cn } from "@/lib/utils";
 import { ShoppingCart } from "lucide-react";
+import { Badge } from "../ui/badge";
+import { useCart } from "@/hooks/use-cart";
 
 
 interface HeaderProps {
@@ -21,9 +23,13 @@ export const Header = ({
     const router = useRouter();
     const session = useSession();
     const pathname = usePathname();
+    const { items } = useCart();
 
     return (
-        <header className="h-20 flex items-center justify-between px-4 md:px-10 bg-zinc-300/10 z-20">
+        <header className={cn(
+            "h-20 flex items-center justify-between px-4 md:px-10 bg-zinc-300/10 z-20",
+            pathname !== "/" && "shadow-md"
+        )}>
             <div>
                 <div className="h-10 aspect-square relative overflow-hidden md:cursor-pointer"
                     onClick={()=>router.push("/")}
@@ -36,17 +42,23 @@ export const Header = ({
                     />
                 </div>
             </div>
-            <div className="flex items-center gap-x-4">
-                <Button
-                    className={cn(
-                        "rounded-none",
-                        pathname === "/" && "bg-transparent text-white hover:text-white hover:bg-transparent text-lg"
-                    )}
-                    variant="ghost"
-                    size="icon"
-                >
-                    <ShoppingCart className="h-6 w-6"/>   
-                </Button>
+            <div className="flex items-center gap-x-6">
+                <div className="relative">
+                    <Button
+                        className={cn(
+                            "rounded-none",
+                            pathname === "/" && "bg-transparent text-white hover:text-white hover:bg-transparent text-lg"
+                        )}
+                        variant="ghost"
+                        size="icon"
+                        onClick={()=>router.push("/cart")}
+                    >
+                        <ShoppingCart className="h-6 w-6"/>   
+                    </Button>
+                    <Badge className="absolute -right-3 -top-2 select-none">
+                        {items.length}
+                    </Badge>
+                </div>
                 {
                     session.status === "unauthenticated" ? (
                         <Button

@@ -13,13 +13,13 @@ export const NavigateProvider = async({
 
     const router = useRouter();
 
-    // if (session && session.user.role === "TUTOR") {
-    //     router.push("/tutor/courses")
-    // }
+    if (session && session.user.role === "TUTOR") {
+        router.push("/tutor/courses")
+    }
 
-    // if (session && !session.user.profile ) {
-    //     router.push("/profile");
-    // }
+    if (session && !session.user.profile ) {
+        router.push("/profile");
+    }
 
     return null;
 }

@@ -6,7 +6,7 @@ import "@blocknote/core/fonts/inter.css";
 import "@blocknote/mantine/style.css";
 
 interface PreviewProps {
-    value: string;   
+    value: string | null; 
 }
 
 const Preview = ({
@@ -18,7 +18,7 @@ const Preview = ({
     });
 
     return (
-        <div className="min-h-60 h-auto bg-white">
+        <div className="bg-white">
             <BlockNoteView
                 editor={editor}
                 theme="light"

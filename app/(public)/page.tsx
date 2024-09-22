@@ -4,6 +4,7 @@ import { Header } from "@/components/utils/header";
 import { HomeFloatingIcons } from "@/components/utils/home-floating-icons";
 import { SearchForm } from "@/components/courses/forms/search.form";
 import { FeatureSubPage } from "@/components/subpages/feature.subpage";
+import { CoursesSubPage } from "@/components/subpages/courses.subpage";
 
 
 const font =  Abril_Fatface({
@@ -40,9 +41,7 @@ const HomePage = () => {
                 </div>
             </section>
             <FeatureSubPage/>
-            <section className="min-h-full h-full bg-sky-300 sticky top-0 rounded-t-3xl md:rounded-t-[5rem]">
-
-            </section>
+            <CoursesSubPage/>
             <section className="min-h-full h-full bg-pink-300 sticky top-0 rounded-t-3xl md:rounded-t-[5rem]">
 
             </section>

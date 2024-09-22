@@ -2,7 +2,13 @@ import { auth } from "@/auth";
 import { SideBar } from "@/components/courses/ui/sidebar";
 import { getCourseAndProgress } from "@/server/course";
 import { getUserProgressCount } from "@/server/progress";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
+
+
+export const metadata : Metadata = ({
+    title : "Admin Dashboard"
+});
 
 interface ViewLayoutPageProps {
     params : { courseId : string }

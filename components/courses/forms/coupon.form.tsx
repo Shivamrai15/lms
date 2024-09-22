@@ -115,7 +115,7 @@ export const CouponForm = ({
                                         <FormItem>
                                             <FormControl>
                                                 <Input
-                                                    placeholder={`E.g. AX783SGA3`}
+                                                    placeholder="Enter Coupon Code"
                                                     className="rounded-none h-14 border-zinc-400 border-2 outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus:border-zinc-500"
                                                     {...field}
                                                     disabled = {isSubmitting}
@@ -133,7 +133,7 @@ export const CouponForm = ({
                                             <FormControl>
                                                 <Input
                                                     type="number"
-                                                    placeholder={`E.g. 10`}
+                                                    placeholder="Enter discount percentage"
                                                     className="rounded-none h-14 border-zinc-400 border-2 outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus:border-zinc-500"
                                                     value={field.value}
                                                     onChange={(e)=>field.onChange(Number.parseInt(e.target.value))}

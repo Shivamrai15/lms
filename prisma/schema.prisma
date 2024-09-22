@@ -65,12 +65,19 @@ enum Gender {
 }
 
 model Profile {
-  id          String    @id @default(uuid())
-  userId      String    @unique
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  description String    @db.Text
-  dob         DateTime?
-  gender      Gender?
+  id           String    @id @default(uuid())
+  userId       String    @unique
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  headline     String?   @db.Text
+  description  String?   @db.Text
+  dob          DateTime?
+  gender       Gender?
+  websiteLink  String?
+  twitterLink  String?
+  facebookLink String?
+  githubLink   String?
+  youtubeLink  String?
+  linkedinLink String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

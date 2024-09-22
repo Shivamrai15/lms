@@ -6,12 +6,16 @@ import axios from 'axios';
 
 interface CourseEnrollButtonProps {
     price : number;
-    courseId: string
+    courseId: string;
+    disabled?: boolean;
+    coupon?: string; 
 }
 
 export const CourseEnrollButton = ({
     courseId,
-    price
+    price,
+    coupon,
+    disabled
 } : CourseEnrollButtonProps) => {
 
     const [loading, setLoading] = useState(false);
@@ -29,9 +33,9 @@ export const CourseEnrollButton = ({
     
     return (
         <Button
-            className='h-14 bg-violet-600 hover:bg-violet-700/90 rounded-none'
+            className='h-14 bg-violet-600 hover:bg-violet-700/90 rounded-none font-semibold'
             onClick={onClick}
-            disabled = {loading}
+            disabled = {loading || disabled}
         >
             Enroll for {formatPrice(price)}
         </Button>

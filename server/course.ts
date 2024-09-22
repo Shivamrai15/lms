@@ -46,11 +46,31 @@ export const getCourseByPublicId = async(id: string)=> {
                 chapters : {
                     orderBy : {
                         position : "asc" 
+                    },
+                    include : {
+                        _count : {
+                            select : {
+                                attachments : true
+                            }
+                        }
                     }
                 },
                 subCategory : {
                     include : {
                         category : true
+                    }
+                },
+                tutor : {
+                    select : {
+                        id : true,
+                        name : true,
+                        image : true,
+                    }
+                },
+                _count : {
+                    select : {
+                        purchases : true,
+                        ratings : true,
                     }
                 }
             }

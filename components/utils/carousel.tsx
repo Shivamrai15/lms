@@ -15,13 +15,16 @@ interface CourseCarouselProps {
     bestseller? : boolean
 }
 
+interface ResponseData {
+    data : (Course & { _count: {purchases: number, ratings: number }, tutor : {name: string | null, id: string} } )[];
+    isLoading : boolean;
+}
+
 export const CourseCarousel = ({
     href,
     bestseller
 } : CourseCarouselProps) => {
-    const {data, isLoading } : { data : (Course& { _count: {
-        purchases: number;
-    }})[], isLoading : boolean } = useSWRQuery(href); 
+    const {data, isLoading }: ResponseData = useSWRQuery(href); 
     
     if ( !isLoading && data.length === 0 ) {
         return null;

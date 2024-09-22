@@ -13,19 +13,21 @@ export async function GET () {
                     _count : "desc"
                 }
             },
-            select: {
-                id: true,
-                title: true,
-                price: true,
-                isPublished: true,
-                image : true,
+            include : {
                 _count : {
                     select : {
-                        purchases : true
+                        purchases : true,
+                        ratings : true
+                    }
+                },
+                tutor : {
+                    select : {
+                        name : true,
+                        id : true
                     }
                 }
-              },
-        })
+            }
+        });
 
         return NextResponse.json(courses);
 
