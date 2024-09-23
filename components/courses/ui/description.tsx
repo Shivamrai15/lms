@@ -39,7 +39,7 @@ export const Description = ({
                 </div>
                 <div
                     onClick={toggleView}
-                    className="cursor-default md:cursor-pointer font-semibold text-violet-600 hover:drop-shadow-lg transition-all"
+                    className="cursor-default md:cursor-pointer font-semibold text-green-600 hover:drop-shadow-lg transition-all"
                     role="button"
                 >
                     {

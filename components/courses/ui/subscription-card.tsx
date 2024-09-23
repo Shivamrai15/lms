@@ -29,7 +29,7 @@ export const SubscriptionCard = ({
     const { items, toggleItem } = useCart();
 
     return (
-        <div className="w-full md:w-96 h-fit shrink-0 md:sticky md:top-10 pb-8 border border-zinc-200 shadow-lg">
+        <div className="w-full md:w-96 h-fit shrink-0 md:sticky md:top-10 pb-8 border border-zinc-200 shadow-xl">
             <div className="aspect-video w-full relative">
                 <Image
                     src={poster}

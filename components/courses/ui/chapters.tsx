@@ -23,7 +23,7 @@ export const Chapters = ({
     const Preview = useMemo(()=>dynamic(()=>import("@/components/utils/preview"), {ssr:false}), []);
 
     return (
-        <div className="w-full">
+        <div className="w-full mt-20">
             <div className="max-w-3xl w-full mx-auto space-y-6">
                 <div className="space-y-2">
                     <h1 className="text-xl md:text-2xl font-bold text-zinc-700">
@@ -39,8 +39,8 @@ export const Chapters = ({
                                     <AccordionTrigger className="hover:no-underline">
                                         <div className="flex items-center justify-between w-full pr-3">
                                             <div className="flex items-center gap-x-3">
-                                                <span className="px-3 py-2 rounded-full bg-violet-100">
-                                                    <VideoIcon className="h-4 w-4 text-violet-700" />
+                                                <span className="px-3 py-2 rounded-full bg-green-100">
+                                                    <VideoIcon className="h-4 w-4 text-green-700" />
                                                 </span>
                                                 <h2 className="text-zinc-700 font-semibold text-sm text-left">{chapter.title}</h2>
                                             </div>

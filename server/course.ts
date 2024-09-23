@@ -44,6 +44,9 @@ export const getCourseByPublicId = async(id: string)=> {
             },
             include : {
                 chapters : {
+                    where : {
+                        isPublished : true
+                    },
                     orderBy : {
                         position : "asc" 
                     },
@@ -65,6 +68,11 @@ export const getCourseByPublicId = async(id: string)=> {
                         id : true,
                         name : true,
                         image : true,
+                        profile : {
+                            select : {
+                                description : true
+                            }
+                        }
                     }
                 },
                 _count : {

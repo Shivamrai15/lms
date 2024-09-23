@@ -57,6 +57,12 @@ const CoursePage = async({
             <div className="w-full mt-20">
                 <div className="max-w-6xl w-full flex flex-col-reverse md:flex-row mx-auto px-6 gap-10 relative">
                     <div className="w-full">
+                        <div className="gap-y-4 px-6 py-10 border border-zinc-300 rounded-xl shadow-md">
+                            <h1 className="text-zinc-600 font-semibold">Top companies offer this course to their employees</h1>
+                            <div className="grid grid-cols-4 items-center justify-items-center ">
+
+                            </div>
+                        </div>
                         <Chapters chapters={course.chapters} />
                         <Description description={course.description!} />
                     </div>
