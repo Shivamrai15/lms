@@ -9,6 +9,7 @@ import { Description } from "@/components/courses/ui/description";
 import { SubscriptionCard } from "@/components/courses/ui/subscription-card";
 import { Metadata } from "next";
 import { courseMetadata } from "@/server/metadata";
+import "./style.css"
 
 
 interface CoursePageProps {

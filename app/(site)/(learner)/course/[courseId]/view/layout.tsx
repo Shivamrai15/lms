@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 
 
 export const metadata : Metadata = ({
-    title : "Admin Dashboard"
+    title : ""
 });
 
 interface ViewLayoutPageProps {
@@ -21,7 +21,7 @@ const ViewLayoutPage = async({
 
     const session = await auth();
     if (!session) {
-        redirect("/");
+        redirect("/login");
     }
 
     const course = await getCourseAndProgress(params.courseId, session.user.id!);

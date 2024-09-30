@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { Loader2, Lock } from "lucide-react";
-import { CldVideoPlayer } from "next-cloudinary";
+import { useEffect, useRef, useState } from "react";
+import { Loader2, Lock, RefreshCwOffIcon } from "lucide-react";
+import { usePlayer } from "@/hooks/use-player";
 
-import 'next-cloudinary/dist/cld-video-player.css';
 
 interface VideoPlayerProps {
     chapterId: string;
@@ -28,9 +27,33 @@ export const VideoPlayer = ({
 } : VideoPlayerProps ) => {
 
     const [isReady, setIsReady] = useState(false);
+    const { setSeek, setTimeStamp } = usePlayer();
+    const videoRef = useRef<HTMLVideoElement|null>(null);
+
+    const handleSeek = ( time:number )=>{
+        if ( !videoRef.current ) {
+            return;
+        }
+        videoRef.current.currentTime = time;
+    }
+
+    useEffect(()=>{
+        const video = videoRef.current;
+        if (!video){
+            return;
+        }
+        setSeek(handleSeek);
+        const updateTime = () => setTimeStamp(Math.floor(video.currentTime));
+        video.addEventListener('timeupdate', updateTime);
+        return () => {
+            video.removeEventListener('timeupdate', updateTime);
+        };
+
+    }, []);
+
 
     return (
-        <div className="relative aspect-video">
+        <div className="relative w-full aspect-video md:aspect-[5/2]">
             {
                 isReady && !isLocked && (
                     <div className="absolute inset-0 flex items-center justify-center bg-neutral-800">
@@ -51,14 +74,15 @@ export const VideoPlayer = ({
             }
             {
                 !isLocked && (
-                    <CldVideoPlayer
-                        width="1920"
-                        height="1080"
+                    <video
+                        className="w-full aspect-video md:aspect-[5/2]"
                         src={videoUrl}
-                        onMetadataLoad={()=>setIsReady(true)}
-                        autoPlay
-                        onEnded={()=>{}}
-                    />
+                        id={chapterId}
+                        controls
+                        controlsList="nodownload" 
+                        onContextMenu={()=>{return false}}
+                        ref={videoRef}
+                    ></video>
                 )
             }
         </div>

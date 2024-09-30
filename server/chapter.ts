@@ -53,7 +53,33 @@ export const getChapter = async({
             },
             select : {
                 price : true,
-                image : true
+                image : true,
+                _count : {
+                    select : {
+                        purchases : true,
+                        ratings : true
+                    }
+                },
+                shortDescription : true,
+                updatedAt : true,
+                tutor : {
+                    select : {
+                        name : true,
+                        image : true,
+                        profile : {
+                            select : {
+                                description : true,
+                                headline : true,
+                                facebookLink : true,
+                                githubLink : true,
+                                websiteLink : true,
+                                linkedinLink : true,
+                                twitterLink : true,
+                                youtubeLink : true
+                            }
+                        }
+                    }
+                }
             }
         });
 
@@ -61,6 +87,17 @@ export const getChapter = async({
             where : {
                 id: chapterId,
                 isPublished :true
+            },
+            include : {
+                attachments : true,
+                notes : {
+                    where : {
+                        userId
+                    },
+                    orderBy : {
+                        time : "asc"
+                    }
+                },
             }
         });
 

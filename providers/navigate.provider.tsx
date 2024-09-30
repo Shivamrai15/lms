@@ -7,7 +7,7 @@ interface NavigateProviderProps {
     session : Session|null
 }
 
-export const NavigateProvider = async({
+export const NavigateProvider = ({
     session
 }:NavigateProviderProps) => {
 

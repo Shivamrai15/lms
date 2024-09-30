@@ -4,15 +4,18 @@ import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/core/fonts/inter.css";
 import "@blocknote/mantine/style.css";
+import { cn } from "@/lib/utils";
 
 interface EditorProps {
     onChange : ( value: string )=>void;
-    value: string;   
+    value: string;
+    className? : string;   
 }
 
 const Editor = ({
     onChange,
-    value
+    value,
+    className
 } : EditorProps ) => {
 
     const editor = useCreateBlockNote({
@@ -20,7 +23,10 @@ const Editor = ({
     });
 
     return (
-        <div className="min-h-60 h-auto bg-white">
+        <div className={cn(
+            "min-h-60 h-auto bg-white w-full",
+            className
+        )}>
             <BlockNoteView
                 editor={editor}
                 theme="light"

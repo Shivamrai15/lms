@@ -16,7 +16,7 @@ const LayoutPage = ({
     return (
         <main className="h-full overflow-y-auto">
             <Header variant="default" />
-            <section>
+            <section className="h-[calc(100%-5rem)]">
                 {children}
             </section>
         </main>
