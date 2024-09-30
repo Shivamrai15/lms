@@ -11,7 +11,7 @@ import { Overview } from "@/components/chapters/ui/overview";
 import { Notes } from "@/components/chapters/ui/notes";
 import { useEffect } from "react";
 import { useNotes } from "@/hooks/use-notes";
-
+import { Canvas } from "./canvas";
 
 interface OptionsProps {
     chapter : Chapter & { notes : Note[], attachments : Attachment[] };
@@ -57,11 +57,12 @@ export const Options = ({
 
 
     return (
-        <div className="min-h-full">
-            <Tabs defaultValue="overview" className="w-full">
+        <div className="min-h-full h-full">
+            <Tabs defaultValue="overview" className="w-full h-full">
                 <TabsList className="w-full h-16 justify-start px-6 gap-x-4 md:px-10 overflow-x-auto">
                     <TabsTrigger value="overview" className="text-[16px] font-semibold">Overview</TabsTrigger>
                     <TabsTrigger value="notes" className="text-[16px] font-semibold">Notes</TabsTrigger>
+                    <TabsTrigger value="canvas" className="text-[16px] font-semibold">Canvas</TabsTrigger>
                     <TabsTrigger value="reviews" className="text-[16px] font-semibold">Reviews</TabsTrigger>
                     <TabsTrigger value="quiz" className="text-[16px] font-semibold">Quiz</TabsTrigger>
                 </TabsList>
@@ -80,6 +81,9 @@ export const Options = ({
                         chapterId={chapter.id}
                         courseId={courseId}
                     />
+                </TabsContent>
+                <TabsContent value="canvas" className="h-[calc(100%-4rem)]">
+                    <Canvas chapterId={chapter.id} />
                 </TabsContent>
                 <TabsContent value="reviews">
 

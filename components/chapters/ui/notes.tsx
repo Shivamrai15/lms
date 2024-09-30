@@ -6,6 +6,7 @@ import { PencilIcon } from "lucide-react";
 import { NotesForm } from "../forms/notes.form";
 import { useNotes } from "@/hooks/use-notes";
 import NoteCard from "./note-card";
+import Image from "next/image";
 
 
 interface NotesProps {
@@ -50,7 +51,7 @@ export const Notes = ({
                     }
                 </div>
                 {
-                    !!notes.length && (
+                    !!notes.length ? (
                         <div className="space-y-8 mt-20">
                             <h1 className="mb-6 text-xl md:text-3xl font-bold text-zinc-800">Your Notes</h1>
                             {notes.map((note)=>(
@@ -61,6 +62,17 @@ export const Notes = ({
                                     key={note.id}
                                 />
                             ))}
+                        </div>
+                    ) : (
+                        <div className="w-full flex items-center justify-center">
+                            <div className="relative max-w-md w-full aspect-square">
+                                <Image
+                                    src="/assets/3841705_80457.svg"
+                                    fill
+                                    alt=""
+                                    className="object-cover"
+                                />
+                            </div>
                         </div>
                     )
                 }
