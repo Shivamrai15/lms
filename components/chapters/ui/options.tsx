@@ -64,7 +64,7 @@ export const Options = ({
                     <TabsTrigger value="notes" className="text-[16px] font-semibold">Notes</TabsTrigger>
                     <TabsTrigger value="canvas" className="text-[16px] font-semibold">Canvas</TabsTrigger>
                     <TabsTrigger value="reviews" className="text-[16px] font-semibold">Reviews</TabsTrigger>
-                    <TabsTrigger value="quiz" className="text-[16px] font-semibold">Quiz</TabsTrigger>
+                    <TabsTrigger value="quiz" className="text-[16px] font-semibold" >Quiz</TabsTrigger>
                 </TabsList>
                 <TabsContent value="overview">
                     <Overview
