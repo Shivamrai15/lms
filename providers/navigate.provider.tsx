@@ -18,7 +18,7 @@ export const NavigateProvider = ({
     }
 
     if (session && !session.user.profile ) {
-        router.push("/profile");
+        router.push("/user");
     }
 
     return null;

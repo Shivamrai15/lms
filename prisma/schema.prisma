@@ -179,6 +179,7 @@ model Chapter {
   position     Int            @default(autoincrement())
   isPublished  Boolean        @default(false)
   isFree       Boolean        @default(false)
+  duration     Int?
   userProgress UserProgress[]
   attachments  Attachment[]
   notes        Note[]
@@ -207,12 +208,12 @@ model UserProgress {
 }
 
 model Purchase {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   userId   String
-  isPaid Boolean @default(false)
-  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  isPaid   Boolean @default(false)
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   courseId String
-  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  course   Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

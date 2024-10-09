@@ -22,6 +22,7 @@ import { toast } from "sonner";
 import { Pencil, PlusCircle, VideoIcon } from "lucide-react";
 import { Chapter } from "@prisma/client";
 import { VideoUpload } from "@/components/utils/video-upload";
+import { FileUpload } from "@/components/utils/file-upload";
 
 const VideoSchema = z.object({
     videoUrl : z.string().min(1)
@@ -117,14 +118,9 @@ export const VideoForm = ({
                                     render={({field})=>(
                                         <FormItem>
                                             <FormControl>
-                                                <VideoUpload
-                                                    value={field.value ? [field.value] : []}
+                                                <FileUpload
+                                                    onChange={(url) => field.onChange(url)}
                                                     disabled = {isSubmitting}
-                                                    onChange={(url) => {
-                                                        field.onChange(url);
-                                                        console.log(url)
-                                                    }}
-                                                    onRemove={() => field.onChange("")}
                                                 />
                                             </FormControl>
                                             <FormMessage/>

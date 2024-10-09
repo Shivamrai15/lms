@@ -15,6 +15,7 @@ import { ResourcesForm } from "@/components/chapters/forms/resource.form";
 import { ArrowLeft, Braces, Eye, FileText, LayoutDashboard, Video, BookOpenCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QuizForm } from "@/components/chapters/forms/quiz.form";
+import { VideoLengthForm } from "@/components/chapters/forms/video-lenght.form";
 
 
 
@@ -124,6 +125,11 @@ const ChapterPage = async({
                                 </h1>
                             </div>
                             <VideoForm
+                                initialData={chapter}
+                                courseId={chapter.courseId}
+                                chapterId={chapter.id}
+                            />
+                            <VideoLengthForm
                                 initialData={chapter}
                                 courseId={chapter.courseId}
                                 chapterId={chapter.id}
