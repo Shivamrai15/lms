@@ -42,9 +42,9 @@ export const SidebarItem = ({
                 isCompleted && active && "bg-emerald-700/30"
             )}
         >
-            <div className="flex items-center gap-x-3 p-4">
+            <div className="flex items-center gap-x-3 p-4 text-left">
                 <Icon
-                    className="h-5 w-5"
+                    className="h-5 w-5 shrink-0"
                 />
                 {label}
             </div>

@@ -210,7 +210,6 @@ model UserProgress {
 model Purchase {
   id       String  @id @default(uuid())
   userId   String
-  isPaid   Boolean @default(false)
   user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   courseId String
   course   Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)

@@ -34,7 +34,7 @@ export const SideBar = async({
     }
     
     return (
-        <div className="h-full w-full bg-neutral-800 flex flex-col overflow-y-auto">
+        <div className="h-full w-full bg-neutral-800 flex flex-col overflow-y-auto chapter-scroll">
             <div className="p-8 flex flex-col border-b">
                 <h1 className="text-white font-semibold">{course.title}</h1>
                 {/* Check user and add progress */}

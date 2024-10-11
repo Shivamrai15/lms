@@ -32,12 +32,13 @@ export async function POST ( req : Request ) {
         }
         await db.purchase.create({
             data : {
-                userId,
-                courseId
+                courseId,
+                userId
             }
         });
+    } else {
+        return new NextResponse("Webhook error", {status:200});
     }
-
     return  new NextResponse(null, {status : 200});
 
 }

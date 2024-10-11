@@ -10,10 +10,16 @@ export async function POST (
 ) {
     try {
 
+
         const session = await auth();
         if ( !session || !session.user || !session.user.id) {
             return new NextResponse("Unauthorized attempt", {status: 401});
         }
+
+        const { coupon }  = await req.json();
+
+        let discount = 0;
+
 
         const course =  await db.course.findUnique({
             where : {
@@ -27,7 +33,7 @@ export async function POST (
                 userId_courseId : {
                     userId : session.user.id,
                     courseId : params.courseId
-                }
+                },
             }
         });
 
@@ -39,14 +45,31 @@ export async function POST (
             return new NextResponse("Course not found", {status: 400});
         }
 
+        if (coupon){
+            const verifyCoupon = await db.coupon.findUnique({
+                where : {
+                    courseId_coupon : {
+                        courseId : params.courseId,
+                        coupon
+                    }
+                },
+            });
+
+            if (verifyCoupon && verifyCoupon.expires > new Date() ) {
+                discount = verifyCoupon.discount
+            }
+        }
+
         const line_items : Stripe.Checkout.SessionCreateParams.LineItem[] = [{
             quantity : 1,
             price_data : {
                 currency : "INR",
                 product_data : {
                     name : course.title,
+                    description: course.shortDescription!,
+                    images : [course.image!]
                 },
-                unit_amount : (course.price!)*100
+                unit_amount : (Math.floor(course.price!-((course.price!*discount)/100)))*100,
             },
         }];
 
@@ -59,11 +82,12 @@ export async function POST (
             }
         });
 
+        
         if (!stripeCustomer) {
             const customer = await stripe.customers.create({
                 email : session.user.email||""
             });
-
+            
             stripeCustomer = await db.stripeCustomer.create({
                 data : {
                     userId : session.user.id,
@@ -71,22 +95,24 @@ export async function POST (
                 }
             });
         }
+        
 
         const paymentSession = await stripe.checkout.sessions.create({
             customer : stripeCustomer.stripeCustomerId,
             line_items,
             mode : "payment",
-            success_url : `${process.env.NEXT_PUBLIC_APP_URL}/course/${course.id}?success=1`,
+            success_url : `${process.env.NEXT_PUBLIC_APP_URL}/course/${course.id}/view`,
             cancel_url : `${process.env.NEXT_PUBLIC_APP_URL}/course/${course.id}?cancel=1`,
+            billing_address_collection : "required",
             metadata : {
                 courseId : course.id,
                 userId: session.user.id
             },
             currency : 'INR',
         });
-        
+    
+        return NextResponse.json({ url: paymentSession.url });
 
-        return NextResponse.json({});
         
     } catch (error) {
         console.error("COURSE CHECKOUT API ERROR", error);

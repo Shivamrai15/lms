@@ -1,8 +1,13 @@
 "use client";
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+
+import axios from 'axios';
+import { toast } from 'sonner';
 import { formatPrice } from '@/lib/format';
 import { Button } from '../ui/button';
-import { useState } from 'react';
-import axios from 'axios';
 
 interface CourseEnrollButtonProps {
     price : number;
@@ -18,14 +23,24 @@ export const CourseEnrollButton = ({
     disabled
 } : CourseEnrollButtonProps) => {
 
+    const router = useRouter();
+    const session = useSession();
     const [loading, setLoading] = useState(false);
 
     const onClick = async()=>{
+
+        if (session.status==="unauthenticated") {
+            router.push("/login");
+            return;
+        }
+
         try {
             setLoading(true);
-            await axios.post(`/api/courses/${courseId}/checkout`)
+            const response =  await axios.post(`/api/courses/${courseId}/checkout`, { coupon : coupon });
+            window.location.assign(response.data.url)
         } catch (error) {
             console.log(error);
+            toast.error("Something went wrong")
         } finally {
             setLoading(false)
         }

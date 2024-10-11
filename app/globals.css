@@ -9,6 +9,17 @@ body,
 }
 
 
+@media screen  and (min-width: 720px) {
+  .chapter-scroll::-webkit-scrollbar {
+    background: #00000000;
+  }
+  .chapter-scroll::-webkit-scrollbar-thumb {
+    background: #ffffff5b;
+  }
+}
+
+
+
 
 @layer base {
   :root {
