@@ -12,17 +12,18 @@ import Image from "next/image";
 interface NotesProps {
     chapterId: string;
     courseId: string;
+    isPurchased: boolean;
 }
 
 export const Notes = ({
     chapterId,
-    courseId
+    courseId,
+    isPurchased
 } : NotesProps ) => {
 
     const { notes, createNote } = useNotes();
     
     const [isCreating, setIsCreating] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
     
     return (
         <div className="w-full pt-6 pb-10 px-6">
@@ -41,6 +42,7 @@ export const Notes = ({
                                 className="w-full h-12 rounded-none border-2 border-zinc-400 font-semibold text-zinc-700 justify-between"
                                 variant="outline"
                                 onClick={()=>setIsCreating(true)}
+                                disabled={!isPurchased}
                             >
                                 <span>
                                     Create your note

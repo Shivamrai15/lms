@@ -111,6 +111,19 @@ const CoursePage = async({
                                     <div className="flex items-center justify-center">
                                         <div className="w-1/3 aspect-square relative">
                                             <Image
+                                                src="/assets/video.png"
+                                                fill
+                                                alt=""
+                                                className="object-contain"
+                                            />
+                                        </div>
+                                    </div>
+                                    <h3 className="text-sm text-zinc-200 font-medium text-center" >{Math.floor((course.chapters.reduce((total, chapter)=>{ return total+chapter.duration! }, 0))/3600)} hours on-demand video</h3>
+                                </div>
+                                <div className="w-full p-4 rounded-md border border-zinc-600 space-y-2 border-l-4">
+                                    <div className="flex items-center justify-center">
+                                        <div className="w-1/3 aspect-square relative">
+                                            <Image
                                                 src="/assets/trophy.png"
                                                 fill
                                                 alt=""
@@ -150,19 +163,6 @@ const CoursePage = async({
                                         </span>
                                         downloadable resources
                                     </h3>
-                                </div>
-                                <div className="w-full p-4 rounded-md border border-zinc-600 space-y-2 border-l-4">
-                                    <div className="flex items-center justify-center">
-                                        <div className="w-1/3 aspect-square relative">
-                                            <Image
-                                                src="/assets/hourglass.png"
-                                                fill
-                                                alt=""
-                                                className="object-contain"
-                                            />
-                                        </div>
-                                    </div>
-                                    <h3 className="text-sm text-zinc-200 font-medium text-center" >Full lifetime access</h3>
                                 </div>
                             </div>
                         </div>

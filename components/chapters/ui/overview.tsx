@@ -16,9 +16,13 @@ import { IoMdLink } from "react-icons/io";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import Preview from "@/components/utils/preview";
+import { UserProgress } from "@prisma/client";
+import { CourseProgressButton } from "@/components/courses/ui/course-progress-button";
 
 
 interface OverviewProps {
+    chapterId : string;
+    courseId : string;
     shortDescription : string;
     ratings : number;
     purchases : number;
@@ -37,37 +41,57 @@ interface OverviewProps {
             twitterLink : string|null;
             youtubeLink :string|null;
         }|null;
-    }
+    };
+    isPurchased : boolean;
+    nextChapterId? : string;
+    userProgress: UserProgress|null;
 }
 
 export const Overview = ({
+    chapterId,
+    courseId,
     description,
     purchases,
     ratings,
     shortDescription,
     tutor,
-    updatedAt
+    updatedAt,
+    isPurchased,
+    nextChapterId,
+    userProgress
 } : OverviewProps) => {
 
     return (
-        <div className="w-full px-6 md:px-10 pb-10">
+        <div className="w-full px-6 md:px-10 pb-10 pt-6">
             <div className="w-full flex flex-col gap-y-8">
                 <h1 className="text-zinc-700 text-lg md:text-xl font-medium">
                     {shortDescription}
                 </h1>
-                <div className="flex items-center justify-start gap-4 gap-x-10">
-                    <div className="flex flex-col">
-                        {/* TODO AVG ratings and stars */}
-                        <span className="text-zinc-600 text-xs font-medium">
-                            {ratings} ratings
-                        </span>
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-start gap-4 gap-x-10">
+                        <div className="flex flex-col">
+                            {/* TODO AVG ratings and stars */}
+                            <span className="text-zinc-600 text-xs font-medium">
+                                {ratings} ratings
+                            </span>
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-zinc-800 font-semibold">{purchases}</span>
+                            <span className="text-zinc-600 text-xs font-medium">
+                                students
+                            </span>
+                        </div>
                     </div>
-                    <div className="flex flex-col">
-                        <span className="text-zinc-800 font-semibold">{purchases}</span>
-                        <span className="text-zinc-600 text-xs font-medium">
-                            students
-                        </span>
-                    </div>
+                    {
+                        isPurchased && (
+                            <CourseProgressButton
+                                chapterId={chapterId}
+                                courseId={courseId}
+                                nextChapterId={nextChapterId}
+                                isCompleted={!!userProgress?.isCompleted}
+                            />
+                        )
+                    }
                 </div>
                 <div className="flex items-center gap-x-3">
                     <FaCircleInfo className="h-5 w-5" />

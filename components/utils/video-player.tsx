@@ -1,8 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Loader2, Lock, RefreshCwOffIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
+
+import { Loader2, Lock } from "lucide-react";
 import { usePlayer } from "@/hooks/use-player";
+import { useConfettiStore } from "@/hooks/use-confetti-store";
+import { toast } from "sonner";
+import axios from "axios";
 
 
 interface VideoPlayerProps {
@@ -25,6 +30,10 @@ export const VideoPlayer = ({
     videoUrl,
     thumbnail
 } : VideoPlayerProps ) => {
+
+
+    const router = useRouter();
+    const confetti = useConfettiStore();
 
     const [isReady, setIsReady] = useState(false);
     const { setSeek, setTimeStamp } = usePlayer();
@@ -50,6 +59,29 @@ export const VideoPlayer = ({
         };
 
     }, []);
+
+    const onEnd = async()=>{
+        try {
+            
+            if ( completeOnEnd ) {
+                await axios.put(`/api/courses/${courseId}/chapters/${chapterId}/progress`, { isCompleted : true })
+            }
+
+            if (!nextChapterId) {
+                confetti.onOpen();
+            }
+            if (nextChapterId) {
+                router.push(`/course/${courseId}/view/chapter/${nextChapterId}`);
+            }
+
+            toast.success("Progress Update");
+            router.refresh();
+
+
+        } catch (error) {
+            toast.error("Something went wrong");
+        }
+    }
 
 
     return (
@@ -82,6 +114,7 @@ export const VideoPlayer = ({
                         controlsList="nodownload" 
                         onContextMenu={()=>{return false}}
                         ref={videoRef}
+                        onEnded={onEnd}
                     ></video>
                 )
             }

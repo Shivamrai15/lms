@@ -38,7 +38,7 @@ export const SidebarItem = ({
             className={cn(
                 "flex items-center gap-x-2 text-zinc-300 text-sm font-medium transition-all hover:text-zinc-200 hover:bg-neutral-700",
                 active && "text-zinc-100 hover:text-white bg-neutral-700 hover:bg-neutral-700",
-                isCompleted && "text-emerald-700 hover:text-emerald-700",
+                isCompleted && "text-emerald-400 hover:text-emerald-700",
                 isCompleted && active && "bg-emerald-700/30"
             )}
         >

@@ -1,6 +1,6 @@
 "use client";
 
-import { Attachment, Chapter, Note } from "@prisma/client";
+import { Attachment, Chapter, Note, UserProgress } from "@prisma/client";
 import {
     Tabs,
     TabsContent,
@@ -39,14 +39,20 @@ interface OptionsProps {
                 youtubeLink :string|null;
             } | null;
         };
-    }
+    },
+    isPurchased : boolean;
+    userProgress : UserProgress|null;
+    nextChapterId? : string;
 }
 
 
 export const Options = ({
     chapter,
     course,
-    courseId
+    courseId,
+    isPurchased,
+    userProgress,
+    nextChapterId
 } : OptionsProps ) => {
 
     const { addNotes } = useNotes();
@@ -74,12 +80,18 @@ export const Options = ({
                         shortDescription={course.shortDescription!}
                         tutor={course.tutor}
                         updatedAt={course.updatedAt}
+                        isPurchased={isPurchased}
+                        chapterId={chapter.id}
+                        courseId={courseId}
+                        nextChapterId={nextChapterId}
+                        userProgress={userProgress}
                     />
                 </TabsContent>
                 <TabsContent value="notes">
                     <Notes 
                         chapterId={chapter.id}
                         courseId={courseId}
+                        isPurchased={isPurchased}
                     />
                 </TabsContent>
                 <TabsContent value="canvas" className="h-[calc(100%-4rem)]">

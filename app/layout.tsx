@@ -6,6 +6,7 @@ import { SessionProvider } from "next-auth/react";
 import { Toaster } from "sonner";
 import { NavigateProvider } from "@/providers/navigate.provider";
 import { EdgeStoreProvider } from "@/providers/edgestore.provider";
+import { ConfettiProvider } from "@/providers/confetti.provider";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -39,6 +40,7 @@ export default async function RootLayout({
                         <NavigateProvider
                             session = { session }
                         />
+                        <ConfettiProvider />
                         {children}
                     </EdgeStoreProvider>
                 </SessionProvider>
