@@ -72,6 +72,7 @@ const CoursePage = async({
                         title={course.title}
                         poster={course.image!}
                         price={course.price!}
+                        course={course}
                     />
                 </div>
             </div>

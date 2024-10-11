@@ -8,6 +8,7 @@ import {
 import { Course } from '@prisma/client';
 import { Card } from '@/components/courses/ui/card';
 import { useSWRQuery } from '@/hooks/useSWRQuery';
+import { CardSkeleton } from '../courses/ui/card-skeleton';
 
 
 interface CourseCarouselProps {
@@ -47,7 +48,16 @@ export const CourseCarousel = ({
                     { isLoading ? (
                         <>
                             <CarouselItem className="basis-auto" >
-                                
+                                <CardSkeleton isBestSeller={bestseller} />
+                            </CarouselItem>
+                            <CarouselItem className="basis-auto" >
+                                <CardSkeleton isBestSeller={bestseller} />
+                            </CarouselItem>
+                            <CarouselItem className="basis-auto" >
+                                <CardSkeleton isBestSeller={bestseller} />
+                            </CarouselItem>
+                            <CarouselItem className="basis-auto" >
+                                <CardSkeleton isBestSeller={bestseller} />
                             </CarouselItem>
                         </>
                         ) : data.map((course) => (

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Header } from "@/components/utils/header"
 
-export const metedata: Metadata = {
+export const metadata: Metadata = {
     title : "Profile"
 }
 

@@ -7,6 +7,7 @@ import { formatPrice } from "@/lib/format";
 import { Button } from "@/components/ui/button";
 import { CouponCheckoutForm } from "@/components/checkout/coupon-checkout-form";
 import { useCart } from "@/hooks/use-cart";
+import { Course } from "@prisma/client";
 
 
 interface SubscriptionCardProps {
@@ -14,7 +15,8 @@ interface SubscriptionCardProps {
     poster: string;
     video?: string;
     price: number;
-    title: string; 
+    title: string;
+    course: Course
 }
 
 export const SubscriptionCard = ({
@@ -22,7 +24,8 @@ export const SubscriptionCard = ({
     poster,
     price,
     video,
-    title
+    title,
+    course
 }: SubscriptionCardProps ) => {
 
     const [appliedPrice, setAppliedPrice] = useState(price);
@@ -45,10 +48,10 @@ export const SubscriptionCard = ({
                         <Button 
                             className="w-full h-12 border-2 border-zinc-600 rounded-none font-semibold text-zinc-800"
                             variant="outline"
-                            onClick={()=>toggleItem(courseId)}
+                            onClick={()=>toggleItem(course)}
                         >
                             {
-                                items.includes(courseId) ? "Remove from cart" : "Add to cart"
+                                items.find(item=>item.id===courseId)  ? "Remove from cart" : "Add to cart"
                             }
                         </Button>
                     </div>

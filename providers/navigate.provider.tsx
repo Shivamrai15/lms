@@ -1,7 +1,7 @@
 "use client";
 
 import { Session } from "next-auth";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface NavigateProviderProps {
     session : Session|null
@@ -12,8 +12,9 @@ export const NavigateProvider = ({
 }:NavigateProviderProps) => {
 
     const router = useRouter();
+    const pathname = usePathname();
 
-    if (session && session.user.role === "TUTOR") {
+    if (session && session.user.role === "TUTOR" && !pathname.includes("/tutor")) {
         router.push("/tutor/courses")
     }
 

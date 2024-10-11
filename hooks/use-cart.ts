@@ -1,19 +1,20 @@
+import { Course } from "@prisma/client";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 interface UseCartProps {
-    items : string[];
-    toggleItem : (id: string )=>void;
+    items : Course[];
+    toggleItem : (course: Course )=>void;
 }
 
 export const useCart = create(persist<UseCartProps>((set, get)=>({
         items : [],
-        toggleItem : (id: string)=>{
-            if ( get().items.includes(id) ) {
-                const filterdItems = get().items.filter((item_id)=>item_id!=id);
+        toggleItem : (course: Course)=>{
+            if ( get().items.find((item)=>item.id===course.id) ) {
+                const filterdItems = get().items.filter((item)=>item.id!=course.id);
                 set({items: filterdItems});
             } else {
-                set({items: [...get().items, id]});
+                set({items: [...get().items, course]});
             }
         }
     }),
