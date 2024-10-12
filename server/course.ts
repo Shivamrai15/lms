@@ -161,3 +161,24 @@ export const getUserCourses = async(userId: string)=> {
         return []
     }
 }
+
+
+export const getCoursesByCategoryId = async (categoryId: string) => {
+    try {
+        
+        const courses = await db.subCategory.findUnique({
+            where : {
+                id : categoryId
+            },
+            include : {
+                courses : true,
+                category : true
+            }
+        });
+
+        return courses
+
+    } catch (error) {
+        return null
+    }
+}

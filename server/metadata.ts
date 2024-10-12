@@ -49,3 +49,19 @@ export const chapterMetadata = async( chapterId: string ) => {
         return null;
     }
 }
+
+export const categoryMetaData = async (categoryId : string)=>{
+    try {
+        
+        const category = await db.subCategory.findUnique({
+            where : {
+                id : categoryId
+            }
+        });
+
+        return category;
+
+    } catch (error) {
+        return null;
+    }
+}

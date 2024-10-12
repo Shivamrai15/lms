@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useSWRQuery } from "@/hooks/useSWRQuery";
 import { Category } from "@prisma/client";
 
@@ -23,7 +24,9 @@ interface Response {
 
 export const Categories = () => {
     
-    const {data, error, isLoading}: Response = useSWRQuery('/api/public/category')
+    const router = useRouter();
+    const {data, error, isLoading}: Response = useSWRQuery('/api/public/category');
+
     
     if ( error ) {
         return null;
@@ -114,7 +117,10 @@ export const Categories = () => {
                         </>
                         ) : data.map((category) => (
                             <CarouselItem key={category.id} className="basis-auto cursor-pointer" >
-                                <div className="p-4 md:p-5 md:px-6 rounded-full bg-neutral-800 hover:bg-neutral-900/80 transition-all">
+                                <div 
+                                    className="p-4 md:p-5 md:px-6 rounded-full bg-neutral-800 hover:bg-neutral-900/80 transition-all"
+                                    onClick={()=>router.push(`/category/${category.id}`)}
+                                >
                                     <h2 className="text-zinc-100 font-semibold text-[15px]">{category.name}</h2>
                                     <span className="text-xs text-zinc-400">{category._count.courses} Courses</span>
                                 </div>
