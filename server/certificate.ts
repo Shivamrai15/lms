@@ -36,3 +36,32 @@ export const getCertificateById = async(id: string)=>{
         return null;
     }
 }
+
+
+export const getUserCertificates = async (userId: string) => {
+    try {
+        
+        const certificates = await db.cerificate.findMany({
+            where : {
+                userId
+            },
+            include : {
+                course : {
+                    select : {
+                        id : true,
+                        image : true,
+                        title : true
+                    }
+                }
+            },
+            orderBy : {
+                createdAt : "asc"
+            }
+        });
+
+        return certificates;
+
+    } catch (error) {
+        return [];
+    }
+}
