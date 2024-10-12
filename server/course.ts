@@ -182,3 +182,23 @@ export const getCoursesByCategoryId = async (categoryId: string) => {
         return null
     }
 }
+
+
+export const searchCourses = async(query: string)=>{
+    try {
+        
+        const courses = await db.course.findMany({
+            where : {
+                title : {
+                    contains : query,
+                    mode : "insensitive"
+                }
+            }
+        });
+
+        return courses;
+
+    } catch (error) {
+        return [];
+    }
+}

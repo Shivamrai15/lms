@@ -1,3 +1,4 @@
+import SearchPageForm from "@/components/courses/forms/search-page.form";
 import { Header } from "@/components/utils/header";
 
 
@@ -11,7 +12,12 @@ const LayoutPage = ({
     return (
         <div className="h-full overflow-y-auto">
             <Header variant="default" />
-            {children}
+            <section className="mt-10 max-w-5xl w-full mx-auto px-6">
+                <SearchPageForm/>
+                <div className="py-10 w-full">
+                    {children}
+                </div>  
+            </section>
         </div>
     )
 }
