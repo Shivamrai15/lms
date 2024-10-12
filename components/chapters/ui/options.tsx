@@ -1,6 +1,14 @@
 "use client";
 
-import { Attachment, Chapter, Note, UserProgress } from "@prisma/client";
+import { useEffect } from "react";
+import { 
+    Attachment, 
+    Chapter, 
+    Note, 
+    UserProgress, 
+    Cerificate
+} from "@prisma/client";
+
 import {
     Tabs,
     TabsContent,
@@ -9,7 +17,6 @@ import {
 } from "@/components/ui/tabs";
 import { Overview } from "@/components/chapters/ui/overview";
 import { Notes } from "@/components/chapters/ui/notes";
-import { useEffect } from "react";
 import { useNotes } from "@/hooks/use-notes";
 import { Canvas } from "./canvas";
 
@@ -43,6 +50,7 @@ interface OptionsProps {
     isPurchased : boolean;
     userProgress : UserProgress|null;
     nextChapterId? : string;
+    certificate : Cerificate|null
 }
 
 
@@ -52,7 +60,8 @@ export const Options = ({
     courseId,
     isPurchased,
     userProgress,
-    nextChapterId
+    nextChapterId,
+    certificate
 } : OptionsProps ) => {
 
     const { addNotes } = useNotes();
@@ -85,6 +94,7 @@ export const Options = ({
                         courseId={courseId}
                         nextChapterId={nextChapterId}
                         userProgress={userProgress}
+                        certificate={certificate}
                     />
                 </TabsContent>
                 <TabsContent value="notes">

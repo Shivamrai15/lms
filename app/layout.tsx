@@ -7,6 +7,7 @@ import { Toaster } from "sonner";
 import { NavigateProvider } from "@/providers/navigate.provider";
 import { EdgeStoreProvider } from "@/providers/edgestore.provider";
 import { ConfettiProvider } from "@/providers/confetti.provider";
+import { ModalProvider } from "@/providers/modal.provider";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -41,6 +42,7 @@ export default async function RootLayout({
                             session = { session }
                         />
                         <ConfettiProvider />
+                        <ModalProvider />
                         {children}
                     </EdgeStoreProvider>
                 </SessionProvider>

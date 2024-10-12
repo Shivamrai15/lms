@@ -24,3 +24,28 @@ export const courseMetadata = async( courseId: string )=>{
         return null;
     }
 }
+
+export const chapterMetadata = async( chapterId: string ) => {
+    try {
+        
+        const chapter = await db.chapter.findUnique({
+            where : {
+                id : chapterId
+            },
+            select : {
+                id : true,
+                title : true,
+                course : {
+                    select : {
+                        image : true
+                    }
+                }
+            }
+        });
+
+        return chapter;
+
+    } catch (error) {
+        return null;
+    }
+}

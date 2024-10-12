@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { Chapter } from "@prisma/client";
+import { Cerificate, Chapter } from "@prisma/client";
 
 export const getChapterById = async(chapterId: string, courseId: string)=>{
     try {
@@ -101,10 +101,22 @@ export const getChapter = async({
             }
         });
 
+        let certificate : Cerificate|null = null;
         let nextChapter : Chapter|null = null;
 
         if (!chapter || !course) {
             throw new Error("Chapter or course not found");
+        }
+
+        if (purchase) {
+            certificate = await db.cerificate.findUnique({
+                where : {
+                    userId_courseId : {
+                        userId,
+                        courseId
+                    }
+                }
+            })
         }
 
         if (chapter.isFree || purchase) {
@@ -136,7 +148,8 @@ export const getChapter = async({
             course,
             nextChapter,
             userProgress,
-            purchase
+            purchase,
+            certificate
         }
 
     } catch (error) {

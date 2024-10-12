@@ -8,6 +8,7 @@ import { usePlayer } from "@/hooks/use-player";
 import { useConfettiStore } from "@/hooks/use-confetti-store";
 import { toast } from "sonner";
 import axios from "axios";
+import { useCertificate } from "@/hooks/use-certificate-modal";
 
 
 interface VideoPlayerProps {
@@ -19,6 +20,7 @@ interface VideoPlayerProps {
     isLocked: boolean;
     completeOnEnd: boolean;
     thumbnail: string;
+    certificate: boolean;
 }
 export const VideoPlayer = ({
     chapterId,
@@ -28,12 +30,14 @@ export const VideoPlayer = ({
     nextChapterId,
     title,
     videoUrl,
-    thumbnail
+    thumbnail,
+    certificate
 } : VideoPlayerProps ) => {
 
 
     const router = useRouter();
     const confetti = useConfettiStore();
+    const { onOpen } = useCertificate();
 
     const [isReady, setIsReady] = useState(false);
     const { setSeek, setTimeStamp } = usePlayer();
@@ -67,6 +71,13 @@ export const VideoPlayer = ({
                 await axios.put(`/api/courses/${courseId}/chapters/${chapterId}/progress`, { isCompleted : true })
             }
 
+            let certificateId : string|null = null;
+
+            if ( !certificate ) {
+                const response = await axios.post(`/api/courses/${courseId}/certificate`);
+                certificateId = response.data.id;
+            }
+
             if (!nextChapterId) {
                 confetti.onOpen();
             }
@@ -77,6 +88,9 @@ export const VideoPlayer = ({
             toast.success("Progress Update");
             router.refresh();
 
+            if ( certificateId ) {
+                onOpen(certificateId);
+            }
 
         } catch (error) {
             toast.error("Something went wrong");

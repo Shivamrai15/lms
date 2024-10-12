@@ -16,8 +16,9 @@ import { IoMdLink } from "react-icons/io";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import Preview from "@/components/utils/preview";
-import { UserProgress } from "@prisma/client";
+import { Cerificate, UserProgress } from "@prisma/client";
 import { CourseProgressButton } from "@/components/courses/ui/course-progress-button";
+import { useRouter } from "next/navigation";
 
 
 interface OverviewProps {
@@ -45,6 +46,7 @@ interface OverviewProps {
     isPurchased : boolean;
     nextChapterId? : string;
     userProgress: UserProgress|null;
+    certificate: Cerificate|null;
 }
 
 export const Overview = ({
@@ -58,8 +60,11 @@ export const Overview = ({
     updatedAt,
     isPurchased,
     nextChapterId,
-    userProgress
+    userProgress,
+    certificate
 } : OverviewProps) => {
+
+    const router = useRouter();
 
     return (
         <div className="w-full px-6 md:px-10 pb-10 pt-6">
@@ -89,6 +94,7 @@ export const Overview = ({
                                 courseId={courseId}
                                 nextChapterId={nextChapterId}
                                 isCompleted={!!userProgress?.isCompleted}
+                                certificate={!!certificate}
                             />
                         )
                     }
@@ -118,7 +124,8 @@ export const Overview = ({
                     <Button 
                         className="w-full rounded-none border-2 border-zinc-400 text-zinc-700 font-semibold"
                         variant="outline"
-                        disabled
+                        disabled={!certificate}
+                        onClick={()=>router.push(`/certificate/${certificate?.id}`)}
                     >
                         LearnIT Certificate
                     </Button>
