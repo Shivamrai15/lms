@@ -1,11 +1,13 @@
 
 import Image from "next/image";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Abril_Fatface } from "next/font/google";
 
 import { auth } from "@/auth"
 import { RoleForm } from "@/components/profile/form/role.form";
-import Link from "next/link";
+import { getUserCourses } from "@/server/course";
+import { Card } from "@/components/courses/ui/card";
 
 
 const font =  Abril_Fatface({
@@ -28,6 +30,8 @@ const ProfilePage = async() => {
             </div>
         )
     }
+
+    const courses = await getUserCourses(session.user.id);
     
     return (
         <div className="">
@@ -46,10 +50,10 @@ const ProfilePage = async() => {
                     </h2>
                 </div>
             </section>
-            <section className="py-16 px-6">
-                <div className="max-w-2xl w-full mx-auto">
-                    <h1 className="text-lg md:text-xl font-semibold text-zinc-800">Overview</h1>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-10">
+            <section className="pt-16 px-6" id="courses" >
+                <div className="max-w-4xl w-full mx-auto">
+                    <h1 className="text-xl md:text-2xl font-bold text-zinc-800">Overview</h1>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-10">
                         <Link 
                             className="w-full flex flex-col justify-between aspect-square border p-6 border-zinc-300 rounded-md hover:-translate-y-2 hover:shadow-md duration-300 transition-all"
                             href="/user/edit-profile"
@@ -62,7 +66,7 @@ const ProfilePage = async() => {
                                     className="object-contain"
                                 />
                             </div>
-                            <h3 className="font-medium text-zinc-700 text-center">Edit Profile</h3>
+                            <h3 className="font-medium text-zinc-700 text-center text-sm">Edit Profile</h3>
                         </Link>
                         <Link 
                             className="w-full flex flex-col justify-between aspect-square border p-6 border-zinc-300 rounded-md hover:-translate-y-2 hover:shadow-md duration-300 transition-all"
@@ -76,21 +80,7 @@ const ProfilePage = async() => {
                                     className="object-contain"
                                 />
                             </div>
-                            <h3 className="font-medium text-zinc-700 text-center">Cart</h3>
-                        </Link>
-                        <Link 
-                            className="w-full flex flex-col justify-between aspect-square border p-6 border-zinc-300 rounded-md hover:-translate-y-2 hover:shadow-md duration-300 transition-all"
-                            href="/user/enrolled-courses"
-                        >
-                            <div className="w-2/3 aspect-square mx-auto relative ">
-                                <Image
-                                    src="/assets/courses.png"
-                                    alt=""
-                                    fill
-                                    className="object-contain"
-                                />
-                            </div>
-                            <h3 className="font-medium text-zinc-700 text-center">Enrolled Courses</h3>
+                            <h3 className="font-medium text-zinc-700 text-center text-sm">Cart</h3>
                         </Link>
                         <Link 
                             className="w-full flex flex-col justify-between aspect-square border p-6 border-zinc-300 rounded-md hover:-translate-y-2 hover:shadow-md duration-300 transition-all"
@@ -104,7 +94,7 @@ const ProfilePage = async() => {
                                     className="object-contain"
                                 />
                             </div>
-                            <h3 className="font-medium text-zinc-700 text-center">Your Certificates</h3>
+                            <h3 className="font-medium text-zinc-700 text-center text-sm">Your Certificates</h3>
                         </Link>
                         <Link 
                             className="w-full flex flex-col justify-between aspect-square border p-6 border-zinc-300 rounded-md hover:-translate-y-2 hover:shadow-md duration-300 transition-all"
@@ -118,11 +108,30 @@ const ProfilePage = async() => {
                                     className="object-contain"
                                 />
                             </div>
-                            <h3 className="font-medium text-zinc-700 text-center">Analytics</h3>
+                            <h3 className="font-medium text-zinc-700 text-center text-sm">Analytics</h3>
                         </Link>
                     </div>
                 </div>
             </section>
+            {
+                courses.length > 0 && (
+                    <section className="py-16 px-6">
+                        <div className="max-w-4xl w-full mx-auto">
+                            <h1 className="text-xl md:text-2xl font-bold text-zinc-800">Enrolled Courses</h1>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-10">
+                                {courses.map(purchase=>(
+                                    <Card 
+                                        course={purchase.course}
+                                        key={purchase.id}
+                                        className="w-full md:w-full hover:scale-105 transition-all duration-300"
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                )
+            }
+            
         </div>
     )
 }

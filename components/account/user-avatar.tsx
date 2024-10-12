@@ -64,7 +64,7 @@ export const UserAvatar = () => {
                         "rounded-none font-medium text-zinc-700 py-2",
                         pathname.includes("/tutor/courses") && "hidden"
                     )}
-                    onClick={()=>router.push("/orders/courses")}
+                    onClick={()=>router.push("/user/#courses")}
                     
                 >
                     <GraduationCap className="mr-3 h-5 w-5" />

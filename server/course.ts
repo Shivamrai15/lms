@@ -142,3 +142,22 @@ export const getCoursesByTutorId = async (tutorId: string) => {
         return [];
     }
 }
+
+export const getUserCourses = async(userId: string)=> {
+    try {
+        
+        const courses = await db.purchase.findMany({
+            where : {
+                userId
+            },
+            include : {
+                course : true
+            }
+        });
+
+        return courses;
+
+    } catch (error) {
+        return []
+    }
+}
