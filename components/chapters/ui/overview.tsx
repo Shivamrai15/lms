@@ -75,12 +75,6 @@ export const Overview = ({
                 <div className="flex items-center justify-between">
                     <div className="flex items-center justify-start gap-4 gap-x-10">
                         <div className="flex flex-col">
-                            {/* TODO AVG ratings and stars */}
-                            <span className="text-zinc-600 text-xs font-medium">
-                                {ratings} ratings
-                            </span>
-                        </div>
-                        <div className="flex flex-col">
                             <span className="text-zinc-800 font-semibold">{purchases}</span>
                             <span className="text-zinc-600 text-xs font-medium">
                                 students

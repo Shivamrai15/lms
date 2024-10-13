@@ -151,7 +151,15 @@ export const getUserCourses = async(userId: string)=> {
                 userId
             },
             include : {
-                course : true
+                course : {
+                    include : {
+                        ratings : {
+                            where : {
+                                userId
+                            }
+                        }
+                    }
+                }
             }
         });
 

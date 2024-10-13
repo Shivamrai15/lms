@@ -19,6 +19,7 @@ import { Overview } from "@/components/chapters/ui/overview";
 import { Notes } from "@/components/chapters/ui/notes";
 import { useNotes } from "@/hooks/use-notes";
 import { Canvas } from "./canvas";
+import CourseReview from "@/components/rating/course-review";
 
 interface OptionsProps {
     chapter : Chapter & { notes : Note[], attachments : Attachment[] };
@@ -108,7 +109,7 @@ export const Options = ({
                     <Canvas chapterId={chapter.id} />
                 </TabsContent>
                 <TabsContent value="reviews">
-
+                    <CourseReview courseId={courseId} />
                 </TabsContent>
                 <TabsContent value="quiz">
 
