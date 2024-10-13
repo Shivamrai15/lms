@@ -10,7 +10,13 @@ import { Card } from "@/components/rating/card";
 
 
 interface Response {
-    data : ( Course & { ratings : Rate[] } )[];
+    data : (Course & {
+        _count: {
+            chapters: number;
+        };
+        progress : number|null;
+        ratings: Rate[];
+    })[];
     error : any
     isLoading : boolean;
     mutate : KeyedMutator<any>;
@@ -26,7 +32,7 @@ export const UserCourses = () => {
 
     return (
         <section className="py-16 px-6">
-            <div className="max-w-4xl w-full mx-auto">
+            <div className="max-w-5xl w-full mx-auto">
                 <h1 className="text-xl md:text-2xl font-bold text-zinc-800">Enrolled Courses</h1>
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mt-10">
                     {

@@ -51,7 +51,7 @@ const ProfilePage = async() => {
                 </div>
             </section>
             <section className="pt-16 px-6" id="courses" >
-                <div className="max-w-4xl w-full mx-auto">
+                <div className="max-w-5xl w-full mx-auto">
                     <h1 className="text-xl md:text-2xl font-bold text-zinc-800">Overview</h1>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-10">
                         <Link 

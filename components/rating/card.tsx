@@ -10,14 +10,21 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import axios from "axios";
 import { FaStar } from "react-icons/fa6";
-import { Star } from "lucide-react";
+import { BookOpen, Star } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { useCommentModal } from "@/hooks/use-comment-modal";
+import { CourseProgress } from "../courses/ui/course-progress";
 
 
 interface CardProps {
-    course : (Course & { ratings : Rate[] } );
+    course : (Course & {
+        _count: {
+            chapters: number;
+        };
+        progress : number|null;
+        ratings: Rate[];
+    });
     isBestSeller? : boolean;
     className? : string;
     mutate : KeyedMutator<any>
@@ -81,16 +88,17 @@ export const Card = ({
             </div>
             <div className="w-full space-y-3 px-3">
                 <h2 className="font-semibold text-zinc-700 line-clamp-2 text-base">{course.title}</h2>
-                <p className="font-medium text-emerald-600">
-                    {formatPrice(course.price!)}
-                </p>
-                {
-                    isBestSeller && (
-                        <span className="block px-2 py-1.5 bg-yellow-300 w-fit text-xs font-medium rounded-full border-b-2 border-yellow-800">
-                            Bestseller
-                        </span>
-                    )
-                }
+                <div
+                    className="flex items-center gap-x-4"
+                >
+                    <span className="h-8 w-8 rounded-full shrink-0 bg-violet-200 flex items-center justify-center">
+                        <BookOpen className="text-violet-700 h-5 w-5" />
+                    </span>
+                    <span className="text-sm font-medium text-zinc-700">
+                        {course._count.chapters} Chapters
+                    </span>
+                </div>
+                <CourseProgress value={course.progress||0} variant="default" size="sm" />
             </div>
             <div className="flex items-center justify-between">
                 <div className='flex items-center gap-x-1.5'>

@@ -1,6 +1,17 @@
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
+import { getUserProgressCount } from "@/server/progress";
+import { Course, Rate } from "@prisma/client";
 import { NextResponse } from "next/server";
+
+
+type CoursesWithProgressAndCategory = Course & {
+    _count: {
+        chapters: number;
+    };
+    progress : number|null;
+    ratings: Rate[];
+}
 
 export async function GET () {
     try {
@@ -23,9 +34,23 @@ export async function GET () {
                     where : {
                         userId : session.user.id
                     }
+                },
+                _count : {
+                    select : {
+                        chapters : {
+                            where : {
+                                isPublished : true
+                            }
+                        }
+                    }
                 }
             }
-        });
+        }) as CoursesWithProgressAndCategory[] ;
+
+        await Promise.all(courses.map(async(course)=>{
+            const progress = await getUserProgressCount(session.user.id!, course.id);
+            course["progress"] = progress;
+        }))
 
         return NextResponse.json(courses);
 
