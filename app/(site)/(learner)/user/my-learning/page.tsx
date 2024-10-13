@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
@@ -5,6 +6,10 @@ import { CompletedChaptersChart } from "@/components/dashboard/completed-chapter
 import { CoursesProgress } from "@/components/dashboard/courses-progress";
 import { TimeChart } from "@/components/dashboard/time-chart";
 
+
+export const metadata : Metadata = {
+    title : "My learning"
+}
 
 const MyLearningPage = async() => {
     

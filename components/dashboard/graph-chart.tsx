@@ -1,7 +1,6 @@
 "use client";
 
 import { TimeSpent } from "@/server/dashboard";
-import { TrendingUp } from "lucide-react";
 import { 
     CartesianGrid,
     Line,
@@ -62,7 +61,7 @@ export const GraphChart = ({
                             tickLine={false}
                             axisLine={false}
                             tickMargin={8}
-                            tickFormatter={(value) => value.slice(0, 3)} // First 3 letters of the day
+                            tickFormatter={(value) => value.slice(0, 3)}
                         />
                         <ChartTooltip
                             cursor={false}
