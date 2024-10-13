@@ -139,7 +139,7 @@ export const Card = ({
                         onOpen(course.ratings[0], mutate, course);
                     }}
                 >
-                    { course.ratings[0].comment ? "Update review" : "Write review" }
+                    { course.ratings[0]?.comment ? "Update review" : "Write review" }
                 </div>
             </div>
         </div>
