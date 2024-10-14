@@ -27,7 +27,7 @@ export const CourseCarousel = ({
 } : CourseCarouselProps) => {
     const {data, isLoading }: ResponseData = useSWRQuery(href); 
     
-    if ( !isLoading && data.length === 0 ) {
+    if ( !isLoading && data?.length === 0 ) {
         return null;
     }
 

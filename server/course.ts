@@ -200,8 +200,9 @@ export const searchCourses = async(query: string)=>{
                 title : {
                     contains : query,
                     mode : "insensitive"
-                }
-            }
+                },
+                isPublished : true
+            },
         });
 
         return courses;

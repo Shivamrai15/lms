@@ -8,6 +8,7 @@ import { NavigateProvider } from "@/providers/navigate.provider";
 import { EdgeStoreProvider } from "@/providers/edgestore.provider";
 import { ConfettiProvider } from "@/providers/confetti.provider";
 import { ModalProvider } from "@/providers/modal.provider";
+import { QueryProvider } from "@/providers/query.provider";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -33,18 +34,20 @@ export default async function RootLayout({
                 <SessionProvider
                     session={session}
                 >
-                    <EdgeStoreProvider>
-                        <Toaster
-                            position="top-center"
-                            richColors={true}
-                        />
-                        <NavigateProvider
-                            session = { session }
-                        />
-                        <ConfettiProvider />
-                        <ModalProvider />
-                        {children}
-                    </EdgeStoreProvider>
+                    <QueryProvider>
+                        <EdgeStoreProvider>
+                            <Toaster
+                                position="top-center"
+                                richColors={true}
+                                />
+                            <NavigateProvider
+                                session = { session }
+                                />
+                            <ConfettiProvider />
+                            <ModalProvider />
+                            {children}
+                        </EdgeStoreProvider>
+                    </QueryProvider>
                 </SessionProvider>
             </body>
         </html>

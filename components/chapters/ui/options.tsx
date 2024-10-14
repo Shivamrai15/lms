@@ -20,6 +20,7 @@ import { Notes } from "@/components/chapters/ui/notes";
 import { useNotes } from "@/hooks/use-notes";
 import { Canvas } from "./canvas";
 import CourseReview from "@/components/rating/course-review";
+import { QNA } from "@/components/qna/qna";
 
 interface OptionsProps {
     chapter : Chapter & { notes : Note[], attachments : Attachment[] };
@@ -51,7 +52,9 @@ interface OptionsProps {
     isPurchased : boolean;
     userProgress : UserProgress|null;
     nextChapterId? : string;
-    certificate : Cerificate|null
+    certificate : Cerificate|null;
+    quizId? : string;
+    quizResultId? : string;
 }
 
 
@@ -62,7 +65,9 @@ export const Options = ({
     isPurchased,
     userProgress,
     nextChapterId,
-    certificate
+    certificate,
+    quizId,
+    quizResultId
 } : OptionsProps ) => {
 
     const { addNotes } = useNotes();
@@ -80,7 +85,7 @@ export const Options = ({
                     <TabsTrigger value="notes" className="text-[16px] font-semibold">Notes</TabsTrigger>
                     <TabsTrigger value="canvas" className="text-[16px] font-semibold">Canvas</TabsTrigger>
                     <TabsTrigger value="reviews" className="text-[16px] font-semibold">Reviews</TabsTrigger>
-                    <TabsTrigger value="quiz" className="text-[16px] font-semibold" >Quiz</TabsTrigger>
+                    <TabsTrigger value="qna" className="text-[16px] font-semibold" >QNA</TabsTrigger>
                 </TabsList>
                 <TabsContent value="overview">
                     <Overview
@@ -96,6 +101,8 @@ export const Options = ({
                         nextChapterId={nextChapterId}
                         userProgress={userProgress}
                         certificate={certificate}
+                        quizId={quizId}
+                        quizResultId={quizResultId}
                     />
                 </TabsContent>
                 <TabsContent value="notes">
@@ -111,8 +118,8 @@ export const Options = ({
                 <TabsContent value="reviews">
                     <CourseReview courseId={courseId} />
                 </TabsContent>
-                <TabsContent value="quiz">
-
+                <TabsContent value="qna" className="h-[calc(100%-4rem)]" >
+                    <QNA chapterId={chapter.id}/>
                 </TabsContent>
             </Tabs>
         </div>

@@ -98,6 +98,19 @@ export const getChapter = async({
                         time : "asc"
                     }
                 },
+                quiz : {
+                    where : {
+                        isPublished : true
+                    },
+                    select : {
+                        id : true,
+                        result : {
+                            where : {
+                                userId
+                            }
+                        }
+                    },
+                }
             }
         });
 

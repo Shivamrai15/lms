@@ -47,6 +47,8 @@ interface OverviewProps {
     nextChapterId? : string;
     userProgress: UserProgress|null;
     certificate: Cerificate|null;
+    quizId? : string;
+    quizResultId? : string;
 }
 
 export const Overview = ({
@@ -61,7 +63,9 @@ export const Overview = ({
     isPurchased,
     nextChapterId,
     userProgress,
-    certificate
+    certificate,
+    quizId,
+    quizResultId
 } : OverviewProps) => {
 
     const router = useRouter();
@@ -126,6 +130,39 @@ export const Overview = ({
                 </div>
             </div>
             <Separator className="mt-8 text-zinc-300"/>
+            {
+                quizId && (
+                    <>
+                        <div className="mt-8 space-y-6 w-full">
+                        <div className="flex items-center gap-x-6">
+                            <div className="h-14 w-14 shrink-0 relative">
+                                <Image
+                                    src="/assets/exam.png"
+                                    alt=""
+                                    fill
+                                    className="object-contain"
+                                />
+                            </div>
+                            <div>
+                                <h2 className="text-xl text-zinc-700 font-semibold">Quiz</h2>
+                                <p className="text-sm text-zinc-700 font-medium">Take a quiz to test and enhance your knowledge.</p>
+                            </div>
+                        </div>
+                        <div className="w-full">
+                            <Button 
+                                className="w-full rounded-none border-2 border-zinc-400 text-zinc-700 font-semibold"
+                                variant="outline"
+                                disabled={!certificate}
+                                onClick={()=>router.push( quizResultId? `/course/${courseId}/quiz/${quizId}/result` : `/course/${courseId}/quiz/${quizId}`)}
+                            >
+                                { quizResultId ? "View result" : "Take test" }
+                            </Button>
+                        </div>
+                    </div>
+                    <Separator className="mt-8 text-zinc-300"/>
+                    </>
+                )
+            }
             <div className="mt-8 space-y-3 w-full">
                 <div className="flex items-center gap-x-6">
                     <div className="h-14 w-14 shrink-0 relative">

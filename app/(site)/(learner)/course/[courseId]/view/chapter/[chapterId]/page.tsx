@@ -99,6 +99,8 @@ const ChapterPage = async({
                 nextChapterId={nextChapter?.id}
                 userProgress={userProgress}
                 certificate={certificate}
+                quizId={chapter?.quiz?.id}
+                quizResultId={chapter?.quiz?.result[0]?.id}
             />
         </div>
     )

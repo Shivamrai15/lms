@@ -57,7 +57,7 @@ export const AggregatedReview = ({
                 <div className="flex h-full items-center justify-between col-span-2">
                     <div className="flex items-center gap-x-3">
                         <span className="text-5xl sm:text-8xl font-bold text-zinc-700">
-                            { data.summary._avg.star || 0 }
+                            { (data.summary._avg.star || 0).toFixed(1) }
                         </span>
                         <FaStar
                             className="text-zinc-700 h-5 w-5 sm:h-9 sm:w-9"

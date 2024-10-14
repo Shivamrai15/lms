@@ -32,6 +32,8 @@ model User {
   certificate   Cerificate[]
   cartItems     CartItems[]
   rating        Rate[]
+  qna           QNA[]
+  solutions     Solution[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -184,6 +186,7 @@ model Chapter {
   attachments  Attachment[]
   notes        Note[]
   history      History[]
+  qna          QNA[]
   courseId     String
   quiz         Quiz?
   course       Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
@@ -208,11 +211,11 @@ model UserProgress {
 }
 
 model Purchase {
-  id       String  @id @default(uuid())
+  id       String @id @default(uuid())
   userId   String
-  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   courseId String
-  course   Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -349,4 +352,34 @@ model Rate {
   updatedAt DateTime @updatedAt
 
   @@unique([userId, courseId])
+}
+
+model QNA {
+  id        String    @id @default(uuid())
+  question  String    @db.Text
+  solution  Solution?
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chapterId String
+  chapter   Chapter   @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, chapterId])
+  @@index([chapterId])
+}
+
+model Solution {
+  id         String @id @default(uuid())
+  answer     String @db.Text
+  questionId String @unique
+  qna        QNA    @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  tutorId    String
+  tutor      User   @relation(fields: [tutorId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([questionId])
 }
