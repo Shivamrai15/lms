@@ -42,9 +42,6 @@ const HomePage = () => {
             </section>
             <FeatureSubPage/>
             <CoursesSubPage/>
-            <section className="min-h-full h-full bg-pink-300 sticky top-0 rounded-t-3xl md:rounded-t-[5rem]">
-
-            </section>
         </>
     )
 }

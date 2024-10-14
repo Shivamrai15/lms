@@ -26,7 +26,7 @@ export const CoursesProgress = async({
                     src="/assets/checked.png"
                 />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-10 gap-6">
                 {
                     [...completedCourses, ...coursesInProgress].map((course)=>(
                         <ProgressCard key={course.id} course={course} />

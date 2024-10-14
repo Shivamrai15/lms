@@ -14,15 +14,19 @@ interface CertificatePageProps {
 }
 
 function splitString(str : string) {
-    const words = str.split(' ');
-    if (words.length > 3) {
-        const firstPart = words.slice(0, 3).join(' ');
-        const secondPart = words.slice(3).join(' ');
-        return { firstPart, secondPart };
-    } else {
+    const midIndex = Math.ceil(str.length / 2);
+    let splitIndex = str.lastIndexOf(' ', midIndex);
+    if (splitIndex === -1) {
+        splitIndex = str.indexOf(' ', midIndex);
+    }
+    if (splitIndex === -1) {
         return { firstPart: str, secondPart: '' };
     }
-  }
+    const firstPart = str.slice(0, splitIndex);
+    const secondPart = str.slice(splitIndex + 1);
+    return { firstPart, secondPart };
+}
+
 
 const CertificatePage = async({
     params

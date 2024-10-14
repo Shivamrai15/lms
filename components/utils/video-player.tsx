@@ -73,7 +73,7 @@ export const VideoPlayer = ({
 
             let certificateId : string|null = null;
 
-            if ( !certificate ) {
+            if ( !certificate && !nextChapterId) {
                 const response = await axios.post(`/api/courses/${courseId}/certificate`);
                 certificateId = response.data.id;
             }
