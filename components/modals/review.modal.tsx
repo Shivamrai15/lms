@@ -23,6 +23,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import axios from "axios";
+import { useEffect } from "react";
 
 const formSchema = z.object({
     comment : z.string().min(1)
@@ -35,9 +36,15 @@ export const ReviewModal = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver : zodResolver(formSchema),
         defaultValues : {
-            comment : rating?.courseId || ""
+            comment : rating?.comment || ""
         }
-    })
+    });
+
+    useEffect(()=>{
+        if (rating) {
+            form.setValue("comment", rating.comment||"");
+        }
+    }, [rating]);
 
 
     const onOpenChange = (open: boolean)=>{
@@ -53,24 +60,15 @@ export const ReviewModal = () => {
         try {
 
             if ( course ) {
-                if ( rating ) {
-
-                    await axios.patch(`/api/user/rating`, {
-                        courseId : course.id,
-                        star : rating.star,
-                        comment : values.comment,
-                    });
-                } else {
-                    await axios.post("/api/user/rating", {
-                        courseId : course.id,
-                        star : 0,
-                        comment : values.comment,
-                    });
-                }
+                await axios.put(`/api/user/rating`, {
+                    courseId : course.id,
+                    comment : values.comment,
+                });
                 if (mutate) {
                     mutate();
                 }
-                onClose()
+                form.reset();
+                onClose();
             }
 
         } catch (error) {

@@ -21,6 +21,7 @@ import { useNotes } from "@/hooks/use-notes";
 import { Canvas } from "./canvas";
 import CourseReview from "@/components/rating/course-review";
 import { QNA } from "@/components/qna/qna";
+import { AI } from "@/components/ai/ai";
 
 interface OptionsProps {
     chapter : Chapter & { notes : Note[], attachments : Attachment[] };
@@ -86,6 +87,7 @@ export const Options = ({
                     <TabsTrigger value="canvas" className="text-[16px] font-semibold">Canvas</TabsTrigger>
                     <TabsTrigger value="reviews" className="text-[16px] font-semibold">Reviews</TabsTrigger>
                     <TabsTrigger value="qna" className="text-[16px] font-semibold" >QNA</TabsTrigger>
+                    <TabsTrigger value="ai" className="text-[16px] font-semibold" >AI</TabsTrigger>
                 </TabsList>
                 <TabsContent value="overview">
                     <Overview
@@ -120,6 +122,12 @@ export const Options = ({
                 </TabsContent>
                 <TabsContent value="qna" className="h-[calc(100%-4rem)]" >
                     <QNA chapterId={chapter.id}/>
+                </TabsContent>
+                <TabsContent value="ai" className="h-[calc(100%-4rem)] " >
+                    <AI
+                        chapterId={chapter.id}
+                        title = {chapter.title}
+                    />
                 </TabsContent>
             </Tabs>
         </div>

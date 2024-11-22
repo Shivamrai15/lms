@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { KeyedMutator } from "swr";
 
-import { formatPrice } from "@/lib/format";
 import { Course, Rate } from "@prisma/client";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -12,7 +11,6 @@ import axios from "axios";
 import { FaStar } from "react-icons/fa6";
 import { BookOpen, Star } from "lucide-react";
 import { toast } from "sonner";
-import { Button } from "../ui/button";
 import { useCommentModal } from "@/hooks/use-comment-modal";
 import { CourseProgress } from "../courses/ui/course-progress";
 
@@ -48,19 +46,11 @@ export const Card = ({
         try {
 
             setActiveStar( starValue );
-            if ( course.ratings[0] ) {
-
-                await axios.patch(`/api/user/rating`, {
-                    courseId :course.id,
-                    star : starValue,
-                    comment : course.ratings[0].comment||undefined,
-                });
-            } else {
-                await axios.post("/api/user/rating", {
-                    star : starValue,
-                    courseId : course.id
-                });
-            }
+            await axios.put(`/api/user/rating`, {
+                courseId :course.id,
+                star : starValue,
+                comment : course.ratings[0].comment||undefined,
+            });
             mutate();
 
         } catch (error) {
