@@ -5,7 +5,8 @@ import {
     useRef,
     useState
 } from 'react';
-import { Ollama } from 'ollama/browser'
+import Image from 'next/image';
+import { Ollama } from 'ollama/browser';
 import { useSession } from 'next-auth/react';
 import { toast } from 'sonner';
 import { useChat } from '@/hooks/use-chat';
@@ -23,8 +24,7 @@ import {
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ChevronRight, CopyCheckIcon, CopyIcon } from 'lucide-react';
-import Image from 'next/image';
+import { CheckIcon, ChevronRight, CopyIcon } from 'lucide-react';
 import { ChatResponse } from './chat';
 
 interface AIProps {
@@ -139,7 +139,7 @@ export const AI = ({
                                         onClick={()=>handleCopy(message.response)}
                                     >
                                         {
-                                            copied ? <CopyCheckIcon className='size-4'/> : <CopyIcon className='size-4'/>
+                                            copied ? <CheckIcon className='size-4'/> : <CopyIcon className='size-4'/>
                                         }
                                     </Button>
                                 </div>

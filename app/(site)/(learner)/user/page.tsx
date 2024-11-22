@@ -8,6 +8,7 @@ import { auth } from "@/auth"
 import { RoleForm } from "@/components/profile/form/role.form";
 import { getUserCourses } from "@/server/course";
 import { UserCourses } from "@/components/courses/ui/user-courses";
+import { Heading } from "@/components/utils/heading";
 
 
 const font =  Abril_Fatface({
@@ -45,9 +46,9 @@ const ProfilePage = async() => {
                             className="object-contain"
                         />
                     </div>
-                    <h2 className={`${font.className} text-2xl md:text-4xl text-zinc-100`}>
+                    <Heading className={`text-2xl md:text-5xl font-[600] text-zinc-100`}>
                         {session.user.name}
-                    </h2>
+                    </Heading>
                 </div>
             </section>
             <section className="pt-16 px-6" id="courses" >

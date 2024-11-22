@@ -19,6 +19,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useMemo } from "react";
+import dynamic from "next/dynamic";
 
 const font =  Abril_Fatface({
     subsets : ["latin"],
@@ -34,9 +36,10 @@ export const Header = ({
 } : HeaderProps) => {
     
     const router = useRouter();
+    const Preview = useMemo(()=>dynamic(()=>import("@/components/utils/preview"), {ssr:false}), []);
     
     return (
-        <header className="w-full bg-neutral-800 px-6 md:px-12 lg:px-24 py-20 md:rounded-r-[7rem]">
+        <header className="w-full px-6 md:px-12 lg:px-24 py-20 bg-gradient-to-b from-violet-300">
             <div className="max-w-6xl w-full mx-auto flex items-center">
                 <div className="w-full md:w-1/2 space-y-6">
                     <div className="flex items-center gap-x-2">
@@ -55,15 +58,15 @@ export const Header = ({
                         </Link>
                     </div>
                     <div className="space-y-4 pb-6">
-                        <h1 className={`${font.className} text-xl md:text-4xl text-white`}>
+                        <h1 className={`${font.className} text-xl md:text-4xl text-zinc-800`}>
                             {course.title}
                         </h1>
-                        <h2 className="text-zinc-200 md:text-lg">
+                        <h2 className="text-zinc-700 md:text-lg">
                             {course.shortDescription}
                         </h2>
                     </div>
                     <HoverCard>
-                        <HoverCardTrigger className="text-zinc-100 cursor-default md:cursor-pointer">Created by {course.tutor.name}</HoverCardTrigger>
+                        <HoverCardTrigger className="text-zinc-800 cursor-default md:cursor-pointer font-semibold">Created by {course.tutor.name}</HoverCardTrigger>
                         <HoverCardContent className="w-72 md:w-96 p-4" align="start" >
                             <div className="flex items-start gap-x-4 md:gap-x-8">
                                 <Avatar>
@@ -72,9 +75,9 @@ export const Header = ({
                                 </Avatar>
                                 <div className="flex flex-col gap-y-4">
                                     <h2 className="text-zinc-700 text-sm font-medium" >@{course.tutor.name}</h2>
-                                    <p className="text-sm text-zinc-700">
-                                        {course.tutor.profile?.description}
-                                    </p>
+                                    <div className="max-h-28 h-full overflow-hidden">
+                                        <Preview value={course.tutor.profile?.description||""} />
+                                    </div>
                                 </div>
                             </div>
                         </HoverCardContent>

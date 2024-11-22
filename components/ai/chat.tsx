@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { Button } from '../ui/button';
-import { CopyCheckIcon, CopyIcon } from 'lucide-react';
+import { CheckIcon, CopyIcon } from 'lucide-react';
 
 
 interface ChatResponseProps {
@@ -44,12 +44,12 @@ export const ChatResponse = ({ response }: ChatResponseProps ) => {
                                 onClick={()=>handleCopy(String(children).replace(/\n$/, ''))}
                             >
                                 {
-                                    copied ? <CopyCheckIcon className='size-4'/> : <CopyIcon className='size-4'/>
+                                    copied ? <CheckIcon className='size-4'/> : <CopyIcon className='size-4'/>
                                 }
                             </Button>
                         </div>
                     ) : (
-                        <div className='py-2 max-md:overflow-x-auto'>
+                        <div className='py-2 max-md:overflow-x-auto inline'>
                             <code className={`bg-gray-100 text-red-500 ${className}`} {...props}>
                                 {children}
                             </code>
