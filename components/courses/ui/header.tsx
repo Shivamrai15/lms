@@ -21,6 +21,7 @@ import { ChevronRight } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useMemo } from "react";
 import dynamic from "next/dynamic";
+import { Heading } from "@/components/utils/heading";
 
 const font =  Abril_Fatface({
     subsets : ["latin"],
@@ -39,7 +40,7 @@ export const Header = ({
     const Preview = useMemo(()=>dynamic(()=>import("@/components/utils/preview"), {ssr:false}), []);
     
     return (
-        <header className="w-full px-6 md:px-12 lg:px-24 py-20 bg-gradient-to-b from-violet-300">
+        <header className="w-full px-6 md:px-12 lg:px-24 py-20 bg-gradient-to-b from-orange-300">
             <div className="max-w-6xl w-full mx-auto flex items-center">
                 <div className="w-full md:w-1/2 space-y-6">
                     <div className="flex items-center gap-x-2">
@@ -58,9 +59,9 @@ export const Header = ({
                         </Link>
                     </div>
                     <div className="space-y-4 pb-6">
-                        <h1 className={`${font.className} text-xl md:text-4xl text-zinc-800`}>
+                        <Heading className={`text-2xl md:text-5xl text-zinc-700 font-bold`}>
                             {course.title}
-                        </h1>
+                        </Heading>
                         <h2 className="text-zinc-700 md:text-lg">
                             {course.shortDescription}
                         </h2>

@@ -24,8 +24,9 @@ import {
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { CheckIcon, ChevronRight, CopyIcon } from 'lucide-react';
+import { CheckIcon, ChevronRight, CopyIcon, Loader2 } from 'lucide-react';
 import { ChatResponse } from './chat';
+import { MdPadding } from 'react-icons/md';
 
 interface AIProps {
     chapterId: string;
@@ -42,12 +43,16 @@ export const AI = ({
     title
 }: AIProps ) => {
     
-    const ollama = new Ollama({ host: 'http://127.0.0.1:11434' });
     const session = useSession();
+
+    const ollama = new Ollama({
+        host: 'http://127.0.0.1:11434',
+    });
 
     const ref = useRef<HTMLDivElement>(null);
     const [copied, setCopied] = useState(false);
     const[loading, setLoading] = useState(false);
+    const [thinking, setThinking] = useState(false)
     
     const { addChat, getUserChat, addResponse, messages } = useChat();
 
@@ -71,16 +76,22 @@ export const AI = ({
         try {
             
             setLoading(true);
+            setThinking(true)
+            form.reset();
             const id = uuidv4();
             addChat(id, chapterId, prompt, session.data?.user.id||"");
             const response = await ollama.chat({
                 model: 'llama3.2',
-                messages: [{ role: 'user', content: `
-                    You are a helpful chatbot that provides answers strictly related to the title of the current chapter. Only respond with information relevant to the chapter's topic. If the user's question is unrelated, politely redirect them to focus on the chapter's title. The current chapter is titled: ${title}
-                    Question ${prompt}` }],
+                messages: [
+                    { 
+                        role: 'user',
+                        content: `You are a helpful chatbot that provides answers strictly related to the title of the current chapter. Only respond with information relevant to the chapter's topic. If the user's question is unrelated, politely redirect them to focus on the chapter's title. The current chapter is titled: ${title}
+                                Question ${prompt}`,
+                    }
+                ],
                 stream : true,
             });
-            form.reset();
+            setThinking(false)
 
             for await (const part of response) {
                 addResponse(id, part.message.content);
@@ -107,11 +118,14 @@ export const AI = ({
            className="h-full w-full relative overflow-y-auto scroll-smooth"
         >
             <div 
-                className='flex flex-col gap-y-16 py-10 px-6 min-h-full max-w-3xl w-full mx-auto'
+                className='flex flex-col gap-y-16 px-6 py-10 min-h-full max-w-3xl w-full mx-auto'
             >
                 {
                     getUserChat(chapterId, session.data?.user.id||"").map((message)=>(
-                        <div className='w-full space-y-10'>
+                        <div 
+                            className='w-full space-y-10'
+                            key={message.id}
+                        >
                             <div
                                 className='w-full flex items-center justify-end'
                             >
@@ -132,6 +146,13 @@ export const AI = ({
                                     />
                                 </div>
                                 <div className='w-[calc(100%-52px)] space-y-4'>
+                                    {
+                                        thinking && (
+                                            <div className='py-1'>
+                                                <Loader2 className='h-8 w-8 animate-spin text-zinc-500' />
+                                            </div>
+                                        )
+                                    }
                                     <ChatResponse response={message.response} />
                                     <Button
                                         variant="outline"
@@ -147,13 +168,13 @@ export const AI = ({
                         </div>
                     ))
                 }
-                <div className='h-4' ref={ref} />
+                <div className='h-0' ref={ref} />
             </div>
-            <div className='px-6 py-6 w-full flex items-center justify-center sticky bottom-0 bg-white'>
+            <div className='px-6 py-6 w-full flex items-center justify-center sticky bottom-0 bg-gradient-to-b from-transparent via-30% via-white to-white'>
                 <Form {...form}>
                     <form
                         className='max-w-3xl w-full bg-white shadow-md border border-zinc-200 mx-auto h-14 md:h-20 rounded-full overflow-hidden flex items-center px-6'
-                        onSubmit={()=>form.handleSubmit(onPromptSubmit)}
+                        onSubmit={form.handleSubmit(onPromptSubmit)}
                     >
                         <FormField
                             control={form.control}
@@ -165,6 +186,7 @@ export const AI = ({
                                             className="h-full w-full bg-transparent outline-none placeholder:text-zinc-500 focus:placeholder:text-zinc-800 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 border-none text-zinc-800 transition-all"
                                             placeholder='Ask your question'
                                             {...field}
+                                            disabled={loading}
                                         />
                                     </FormControl>
                                 </FormItem>
