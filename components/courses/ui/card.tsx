@@ -52,7 +52,7 @@ export const Card = ({
                                 className="rounded-full bg-white"
                                 onClick={(e)=>{
                                     e.stopPropagation();
-                                    toggleItem(course);
+                                    // toggleItem(course);
                                     toast.info("Course is removed from cart");
                                 }}
                             >
@@ -68,7 +68,7 @@ export const Card = ({
                                 onClick={(e)=>{
                                     e.stopPropagation();
                                     toast.info(items.find(item=>item.id===course.id) ? "Course is removed from cart" : "Course is added to cart")
-                                    toggleItem(course);
+                                    // toggleItem(course);
                                 }}
                             >
                                 { items.find(item=>item.id===course.id) ? (<MdOutlineRemoveShoppingCart className="text-zinc-800 h-6 w-6"/>): (<MdOutlineShoppingCart className="text-zinc-800 h-6 w-6"/>)}

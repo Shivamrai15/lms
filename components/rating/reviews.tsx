@@ -46,7 +46,7 @@ export const Reviews = ({
                 data.map((review)=>(
                     <div key={review.id} className="w-full">
                         <div className="flex items-start w-full gap-x-6 mb-2">
-                            <div className="h-10 md:h-14 aspect-square shrink-0">
+                            <div className="h-8 md:h-10 aspect-square shrink-0">
                                 <Avatar className="h-full w-full">
                                     <AvatarImage src={review.user?.image||""} />
                                     <AvatarFallback className="bg-neutral-800 text-zinc-200 font-semibold md:text-lg" >{review.user.name?.charAt(0)}</AvatarFallback>
@@ -54,9 +54,9 @@ export const Reviews = ({
                             </div>
                             <div className="space-y-4">
                                 <div className="space-y-1">
-                                    <h2 className="text-lg text-zinc-800 font-semibold" >{review.user?.name}</h2>
+                                    <h2 className="text-base text-zinc-800 font-semibold" >{review.user?.name}</h2>
                                     <div className="flex items-center flex-wrap gap-x-6">
-                                        <div className="flex gap-x-2 items-center">
+                                        <div className="flex gap-x-0.5 items-center">
                                             { stars.map((value, index)=>(
                                                 value <= (review?.star || 0) ? (
                                                     <FaStar
@@ -71,7 +71,7 @@ export const Reviews = ({
                                                 )
                                             )) }
                                         </div>
-                                        <p className="text-zinc-700 text-sm font-semibold">
+                                        <p className="text-zinc-700 text-xs font-semibold">
                                             { format(review.createdAt, "dd LLL yyyy")}
                                         </p>
                                     </div>

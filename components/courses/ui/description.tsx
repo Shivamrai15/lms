@@ -1,8 +1,10 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
 import { useMemo, useState } from "react";
+
+import { cn } from "@/lib/utils";
+import { Heading } from "@/components/utils/heading";
 
 
 interface DescriptionProps {
@@ -21,9 +23,9 @@ export const Description = ({
     return (
         <section className="mt-20 w-full">
             <div className="max-w-3xl mx-auto">
-                <h1 className="text-xl md:text-2xl font-bold text-zinc-700">
+                <Heading className="text-2xl md:text-3xl font-bold text-zinc-700">
                     Course Description
-                </h1>
+                </Heading>
                 <div 
                     className={cn(
                         "text-zinc-700 relative h-72 overflow-hidden mt-6",

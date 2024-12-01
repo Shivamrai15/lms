@@ -11,6 +11,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Chapter } from "@prisma/client";
 import { VideoIcon } from "lucide-react";
+import { Heading } from "@/components/utils/heading";
 
 interface ChaptersProps {
     chapters : Chapter[];
@@ -37,9 +38,9 @@ export const Chapters = ({
         <div className="w-full mt-20">
             <div className="max-w-3xl w-full mx-auto space-y-6">
                 <div className="space-y-2">
-                    <h1 className="text-xl md:text-2xl font-bold text-zinc-700">
+                    <Heading className="text-2xl md:text-3xl font-bold text-zinc-700">
                         Course Content
-                    </h1>
+                    </Heading>
                     <p className="text-sm font-medium text-zinc-500">Course content includes {chapters.length} chapters</p>
                 </div>
                 <div className="border-2 border-zinc-400 w-full px-4">

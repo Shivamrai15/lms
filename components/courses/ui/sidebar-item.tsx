@@ -1,8 +1,9 @@
 "use client";
 
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { CheckCircle, Lock, PlayCircle } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { useSidebar } from "@/hooks/use-sidebar";
 
 interface SidebarItemProps {
     id: string;
@@ -22,6 +23,7 @@ export const SidebarItem = ({
 
     const pathname = usePathname();
     const router = useRouter();
+    const { onClose } = useSidebar();
 
     const Icon = isLocked ? Lock : (isCompleted ? CheckCircle : PlayCircle);
 
@@ -29,6 +31,7 @@ export const SidebarItem = ({
 
     const onClick = () => {
         router.push(`/course/${courseId}/view/chapter/${id}`);
+        onClose();
     }
 
     return (
@@ -36,9 +39,9 @@ export const SidebarItem = ({
             onClick={onClick}
             type="button"
             className={cn(
-                "flex items-center gap-x-2 text-zinc-300 text-sm font-medium transition-all hover:text-zinc-200 hover:bg-neutral-700",
+                "flex items-center gap-x-2 text-zinc-300 text-sm font-medium transition-all hover:text-zinc-200 hover:bg-neutral-700 focus:outline-none",
                 active && "text-zinc-100 hover:text-white bg-neutral-700 hover:bg-neutral-700",
-                isCompleted && "text-emerald-400 hover:text-emerald-700",
+                isCompleted && "text-emerald-400 hover:text-emerald-500",
                 isCompleted && active && "bg-emerald-700/30"
             )}
         >

@@ -48,7 +48,7 @@ export const SubscriptionCard = ({
                         <Button 
                             className="w-full h-12 border-2 border-zinc-600 rounded-none font-semibold text-zinc-800"
                             variant="outline"
-                            onClick={()=>toggleItem(course)}
+                            // onClick={()=>toggleItem(course)}
                         >
                             {
                                 items.find(item=>item.id===courseId)  ? "Remove from cart" : "Add to cart"

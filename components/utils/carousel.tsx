@@ -5,10 +5,10 @@ import {
     CarouselNext,
     CarouselPrevious
 } from '@/components/ui/carousel';
-import { Course } from '@prisma/client';
-import { Card } from '@/components/courses/ui/card';
 import { useSWRQuery } from '@/hooks/useSWRQuery';
 import { CardSkeleton } from '../courses/ui/card-skeleton';
+import { Course } from '@/types';
+import { CardWithRating } from '../courses/ui/card-with-ratings';
 
 
 interface CourseCarouselProps {
@@ -17,7 +17,7 @@ interface CourseCarouselProps {
 }
 
 interface ResponseData {
-    data : (Course & { _count: {purchases: number, ratings: number }, tutor : {name: string | null, id: string} } )[];
+    data : Course[];
     isLoading : boolean;
 }
 
@@ -61,8 +61,8 @@ export const CourseCarousel = ({
                             </CarouselItem>
                         </>
                         ) : data.map((course) => (
-                            <CarouselItem key={course.id} className="basis-auto cursor-pointer" >
-                                <Card course={course} isBestSeller = {bestseller} />
+                            <CarouselItem key={course.id} className="basis-auto cursor-pointer py-8" >
+                                <CardWithRating course={course} isBestSeller={bestseller} />
                             </CarouselItem>
                     )) }
                 </CarouselContent>

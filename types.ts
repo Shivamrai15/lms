@@ -14,3 +14,21 @@ export type Message  = {
     response: string;
     createdAt : Date;
 }
+
+export type Achievement = {
+    _count : {
+        id: number
+    };
+    createdAt : Date;
+} 
+
+
+export type Course  = {
+    id: string;
+    title: string;
+    price: number;
+    image: string;
+    total_purchases: number;
+    average_rating: string;
+    tutor_name: string;
+}

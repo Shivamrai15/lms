@@ -49,7 +49,7 @@ export const Card = ({
             await axios.put(`/api/user/rating`, {
                 courseId :course.id,
                 star : starValue,
-                comment : course.ratings[0].comment||undefined,
+                comment : course?.ratings[0]?.comment||undefined,
             });
             mutate();
 
@@ -129,7 +129,7 @@ export const Card = ({
                         onOpen(course.ratings[0], mutate, course);
                     }}
                 >
-                    { course.ratings[0]?.comment ? "Update review" : "Write review" }
+                    { course?.ratings[0]?.comment ? "Update review" : "Write review" }
                 </div>
             </div>
         </div>

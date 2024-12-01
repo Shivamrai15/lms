@@ -21,6 +21,7 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart";
 import { ChapterCompletion } from "@/server/dashboard";
+import { Heading } from "../utils/heading";
 
 const chartConfig = {
     desktop: {
@@ -37,7 +38,11 @@ export const ChaptersChart = ({ data }: ChaptersChartProps) => {
     return (
         <Card>
             <CardHeader>
-                <CardTitle className="text-zinc-700" >Chapters Completed</CardTitle>
+                <CardTitle className="text-zinc-700" >
+                    <Heading className="md:text-4xl font-[600]">
+                        Chapters Completed
+                    </Heading>
+                </CardTitle>
                 <CardDescription>Last 7 days</CardDescription>
             </CardHeader>
             <CardContent>

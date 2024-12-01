@@ -24,9 +24,8 @@ import {
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { CheckIcon, ChevronRight, CopyIcon, Loader2 } from 'lucide-react';
+import { ChevronRight, Loader2 } from 'lucide-react';
 import { ChatResponse } from './chat';
-import { MdPadding } from 'react-icons/md';
 
 interface AIProps {
     chapterId: string;
@@ -50,7 +49,6 @@ export const AI = ({
     });
 
     const ref = useRef<HTMLDivElement>(null);
-    const [copied, setCopied] = useState(false);
     const[loading, setLoading] = useState(false);
     const [thinking, setThinking] = useState(false)
     
@@ -63,14 +61,6 @@ export const AI = ({
             prompt : ""
         }
     });
-
-
-    const handleCopy = (value: string) => {
-        navigator.clipboard.writeText(value);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1000);
-    };
-
 
     const onPromptSubmit = async ({ prompt }: z.infer<typeof formSchema>) => {
         try {
@@ -145,7 +135,7 @@ export const AI = ({
                                         className='object-contain'
                                     />
                                 </div>
-                                <div className='w-[calc(100%-52px)] space-y-4'>
+                                <div className='w-[calc(100%-52px)]'>
                                     {
                                         thinking && (
                                             <div className='py-1'>
@@ -154,15 +144,6 @@ export const AI = ({
                                         )
                                     }
                                     <ChatResponse response={message.response} />
-                                    <Button
-                                        variant="outline"
-                                        className='p-2 h-8'
-                                        onClick={()=>handleCopy(message.response)}
-                                    >
-                                        {
-                                            copied ? <CheckIcon className='size-4'/> : <CopyIcon className='size-4'/>
-                                        }
-                                    </Button>
                                 </div>
                             </div>
                         </div>

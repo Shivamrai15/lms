@@ -1,6 +1,6 @@
-import { Card } from "@/components/courses/ui/card";
-import { searchCourses } from "@/server/course";
 import Image from "next/image";
+import { searchCourses } from "@/server/course";
+import { CardWithRating } from "@/components/courses/ui/card-with-ratings";
 
 
 interface SearchPageProps {
@@ -49,10 +49,9 @@ const SearchPage = async({
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10">
                 {
                     courses.map((course)=>(
-                        <Card
-                            className="w-full md:w-full md:hover:scale-105 transition-all duration-300"
-                            course={course}
+                        <CardWithRating
                             key={course.id}
+                            course={course}
                         />
                     ))
                 }

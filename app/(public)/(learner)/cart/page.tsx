@@ -1,9 +1,8 @@
 "use client";
 
-import { Card } from "@/components/courses/ui/card";
-import { useCart } from "@/hooks/use-cart";
-import { useSWRQuery } from "@/hooks/useSWRQuery";
 import Image from "next/image";
+import { CardWithRating } from "@/components/courses/ui/card-with-ratings";
+import { useCart } from "@/hooks/use-cart";
 
 
 const CartPage = () => {
@@ -32,10 +31,9 @@ const CartPage = () => {
                 <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
                     {
                         items.map((item)=>(
-                            <Card
+                            <CardWithRating
                                 course={item}
                                 key={item.id}
-                                remove
                                 className="w-full md:w-full md:hover:scale-105 transition-all duration-300"
                             />
                         ))

@@ -9,6 +9,7 @@ import { useConfettiStore } from "@/hooks/use-confetti-store";
 import { toast } from "sonner";
 import axios from "axios";
 import { useCertificate } from "@/hooks/use-certificate-modal";
+import { useSession } from "next-auth/react";
 
 
 interface VideoPlayerProps {
@@ -36,12 +37,14 @@ export const VideoPlayer = ({
 
 
     const router = useRouter();
+    const session = useSession();
     const confetti = useConfettiStore();
     const { onOpen } = useCertificate();
 
     const [isReady, setIsReady] = useState(false);
     const { setSeek, setTimeStamp } = usePlayer();
     const videoRef = useRef<HTMLVideoElement|null>(null);
+    const identityRef = useRef<HTMLDivElement|null>(null);
 
     const handleSeek = ( time:number )=>{
         if ( !videoRef.current ) {
@@ -55,13 +58,38 @@ export const VideoPlayer = ({
         if (!video){
             return;
         }
+        const handleFullscreenChange = () => {
+            const isFullScreen = document.fullscreenElement === videoRef.current;
+            if (identityRef.current) {
+                identityRef.current.style.display = isFullScreen ? 'block' : 'none';
+            }
+        };
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+    
         setSeek(handleSeek);
         const updateTime = () => setTimeStamp(Math.floor(video.currentTime));
         video.addEventListener('timeupdate', updateTime);
         return () => {
             video.removeEventListener('timeupdate', updateTime);
+            document.removeEventListener('fullscreenchange', handleFullscreenChange);
         };
 
+    }, []);
+
+
+    useEffect(()=>{
+        const interval = setInterval(()=>{
+            if (identityRef.current) {
+                const left = Math.floor(Math.random() * 101);
+                const top = Math.floor(Math.random() * 101);
+                identityRef.current.style.top = `${top}%`;
+                identityRef.current.style.left = `${left}%`;
+            }
+        }, 1500);
+
+        return ()=>{
+            clearInterval(interval);
+        }
     }, []);
 
     const onEnd = async()=>{
@@ -99,7 +127,7 @@ export const VideoPlayer = ({
 
 
     return (
-        <div className="relative w-full aspect-video md:aspect-[5/2]">
+        <div className="relative w-full aspect-video md:aspect-[5/2] overflow-hidden bg-neutral-900">
             {
                 isReady && !isLocked && (
                     <div className="absolute inset-0 flex items-center justify-center bg-neutral-800">
@@ -132,6 +160,12 @@ export const VideoPlayer = ({
                     ></video>
                 )
             }
+            <div
+                className="absolute bg-red-400/40 text-zinc-100 rounded-lg left-0 top-0 px-4 py-2"
+                ref={identityRef}
+            >
+                {session.data?.user.email}
+            </div>
         </div>
     )
 }

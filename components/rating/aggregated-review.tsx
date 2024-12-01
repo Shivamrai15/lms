@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 import { FaStar } from "react-icons/fa6";
 import { KeyedMutator } from "swr";
 import { RatingGraph } from "./rating-graph";
+import { Heading } from "../utils/heading";
 
 
 interface RateSummary {
@@ -52,7 +53,7 @@ export const AggregatedReview = ({
     
     return (
         <div className="space-y-6">
-            <h1 className="text-xl md:text-3xl font-bold text-zinc-800">Course Review</h1>
+            <Heading className="text-xl md:text-3xl font-bold text-zinc-800">Course Review</Heading>
             <div className="w-full grid grid-cols-6">
                 <div className="flex h-full items-center justify-between col-span-2">
                     <div className="flex items-center gap-x-3">
@@ -64,7 +65,7 @@ export const AggregatedReview = ({
                         />
                     </div>
                 </div>
-                <div className="border-l-2 px-2 pl-4 col-span-4 space-y-2">
+                <div className="border-l-2 px-2 pl-4 col-span-3 space-y-2 w-full">
                     <RatingGraph
                         label={5}
                         reviews={data.group.find((value)=>value.star===5)?._count.star || 0}

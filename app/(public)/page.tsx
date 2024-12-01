@@ -26,7 +26,7 @@ const HomePage = () => {
                     <div className="w-full h-[calc(100%-5rem)] flex flex-col justify-end" >
                         <div className="max-w-5xl mx-auto w-full">
                             <div className={`${font.className} px-6 md:w-1/2 py-10 space-y-6`}>
-                                <Heading className="text-3xl md:text-8xl text-white drop-shadow-2xl shadow-black font-semibold">
+                                <Heading className="text-5xl md:text-8xl text-white drop-shadow-2xl shadow-black font-semibold">
                                     LearnIT
                                 </Heading>
                                 <p className="text-lg md:text-xl  text-zinc-200">

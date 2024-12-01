@@ -6,9 +6,10 @@ import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { UserAvatar } from "@/components/account/user-avatar";
 import { cn } from "@/lib/utils";
-import { ShoppingCart } from "lucide-react";
+import { LibraryBig, ShoppingCart } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { useCart } from "@/hooks/use-cart";
+import { useSidebar } from "@/hooks/use-sidebar";
 
 
 interface HeaderProps {
@@ -24,6 +25,7 @@ export const Header = ({
     const session = useSession();
     const pathname = usePathname();
     const { items } = useCart();
+    const { onOpen } = useSidebar();
 
     return (
         <header className={cn(
@@ -31,7 +33,18 @@ export const Header = ({
             pathname !== "/" && "shadow-md"
         )}>
             <div>
-                <div className="h-10 aspect-square relative overflow-hidden md:cursor-pointer"
+                <LibraryBig
+                    className={cn(
+                        "size-10 hidden md:hidden text-zinc-900",
+                        pathname.includes("/course") && pathname.includes("/view") && "block"
+                    )}
+                    onClick={()=>onOpen()}
+                />
+                <div 
+                    className={cn(
+                        "h-10 aspect-square max-md:hidden relative overflow-hidden md:cursor-pointer",
+                        !(pathname.includes("/course") && pathname.includes("/view")) && "max-md:block"
+                    )}
                     onClick={()=>router.push("/")}
                 >
                     <Image

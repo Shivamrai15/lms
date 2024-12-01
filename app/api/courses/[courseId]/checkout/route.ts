@@ -1,8 +1,10 @@
+import Stripe from "stripe";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { stripe } from "@/lib/stripe";
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
+
+import { v4 as uuidv4 } from "uuid";
 
 export async function POST (
     req: Request,
@@ -101,7 +103,7 @@ export async function POST (
             customer : stripeCustomer.stripeCustomerId,
             line_items,
             mode : "payment",
-            success_url : `${process.env.NEXT_PUBLIC_APP_URL}/course/${course.id}/view`,
+            success_url : `${process.env.NEXT_PUBLIC_APP_URL}/course/${course.id}/view?paymentId=${uuidv4()}`,
             cancel_url : `${process.env.NEXT_PUBLIC_APP_URL}/course/${course.id}?cancel=1`,
             billing_address_collection : "required",
             metadata : {

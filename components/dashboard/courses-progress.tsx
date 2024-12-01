@@ -2,6 +2,7 @@ import { getDashboardCourses } from "@/server/dashboard";
 import { ProgressCard } from "./progress-card";
 import { InfoCard } from "./info-card";
 
+
 interface CoursesProgressProps {
     userId : string;
 }
@@ -13,7 +14,7 @@ export const CoursesProgress = async({
     const { completedCourses, coursesInProgress } = await getDashboardCourses(userId);
     
     return (
-        <div className="max-w-5xl w-full mx-auto py-10 px-6">
+        <div className="max-w-5xl w-full mx-auto py-10 md:py-24 px-6">
             <div className="grid sm:grid-cols-2 gap-x-6 gap-y-4">
                 <InfoCard
                     label="In Progress"

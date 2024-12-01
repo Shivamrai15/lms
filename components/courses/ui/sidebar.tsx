@@ -1,7 +1,4 @@
-import { auth } from "@/auth";
-import { db } from "@/lib/db";
-import { Chapter, Course, UserProgress } from "@prisma/client"
-import { redirect } from "next/navigation";
+import { Chapter, Course, Purchase, UserProgress } from "@prisma/client";
 import { SidebarItem } from "./sidebar-item";
 import { CourseProgress } from "./course-progress";
 
@@ -10,30 +7,14 @@ interface SideBarProps {
         chapters : ( Chapter & { userProgress : UserProgress[]|null })[]
     };
     progressCount : number;
+    purchase: Purchase|null;
 }
 
 export const SideBar = async({
     course,
-    progressCount
+    progressCount,
+    purchase
 }: SideBarProps) => {
-
-    const session = await auth();
-    if (!session) {
-        redirect("/");
-    }
-
-    const purchase = await db.purchase.findUnique({
-        where : {
-            userId_courseId : {
-                userId : session.user.id!,
-                courseId : course.id
-            }
-        }
-    });
-
-    if (!purchase) {
-
-    }
     
     return (
         <div className="h-full w-full bg-neutral-800 flex flex-col overflow-y-auto chapter-scroll">

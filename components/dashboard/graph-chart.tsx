@@ -21,6 +21,7 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart";
+import { Heading } from "../utils/heading";
 
 export const description = "A line chart with dots";
 
@@ -42,7 +43,11 @@ export const GraphChart = ({
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Time Spent By You</CardTitle>
+                <CardTitle>
+                    <Heading className="md:text-4xl font-[600]">
+                        Time Spent By You
+                    </Heading>
+                </CardTitle>
                 <CardDescription>Last 7 Days</CardDescription>
             </CardHeader>
             <CardContent>
