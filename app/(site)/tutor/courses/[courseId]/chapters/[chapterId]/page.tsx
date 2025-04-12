@@ -16,6 +16,7 @@ import { ArrowLeft, Braces, Eye, FileText, LayoutDashboard, Video, BookOpenCheck
 import { Button } from "@/components/ui/button";
 import { QuizForm } from "@/components/chapters/forms/quiz.form";
 import { VideoLengthForm } from "@/components/chapters/forms/video-lenght.form";
+import { TranscriptForm } from "@/components/chapters/forms/transcript";
 
 
 
@@ -130,6 +131,11 @@ const ChapterPage = async({
                                 chapterId={chapter.id}
                             />
                             <VideoLengthForm
+                                initialData={chapter}
+                                courseId={chapter.courseId}
+                                chapterId={chapter.id}
+                            />
+                            <TranscriptForm
                                 initialData={chapter}
                                 courseId={chapter.courseId}
                                 chapterId={chapter.id}

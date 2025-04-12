@@ -99,7 +99,7 @@ const NoteCard = ({
                     ) : (
                         <Preview
                             value={note.note}
-                            className="border-2 py-3 border-zinc-400"
+                            className="border-2 py-3 border-zinc-400 px-10"
                         />
                     )
                 }

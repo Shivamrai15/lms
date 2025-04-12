@@ -71,7 +71,7 @@ export const AI = ({
             const id = uuidv4();
             addChat(id, chapterId, prompt, session.data?.user.id||"");
             const response = await ollama.chat({
-                model: 'llama3.2',
+                model: 'qwen2.5-coder:latest',
                 messages: [
                     { 
                         role: 'user',

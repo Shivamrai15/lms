@@ -35,7 +35,7 @@ const Editor = ({
 
     return (
         <div className={cn(
-            "min-h-60 h-auto bg-white w-full",
+            "min-h-60 h-auto bg-white w-full px-16",
             className
         )}>
             <BlockNoteView

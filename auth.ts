@@ -16,6 +16,7 @@ export const {
         signIn: "/login",
         error: "/auth/error",
     },
+    trustHost: true,
     events: {
         async linkAccount({ user }) {
             await db.user.update({
