@@ -127,6 +127,7 @@ export const Options = ({
                     <AI
                         chapterId={chapter.id}
                         title = {chapter.title}
+                        transcript = {chapter.transcript}
                     />
                 </TabsContent>
             </Tabs>

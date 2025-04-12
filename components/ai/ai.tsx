@@ -30,6 +30,7 @@ import { ChatResponse } from './chat';
 interface AIProps {
     chapterId: string;
     title: string;
+    transcript : string|null;
 }
 
 const formSchema = z.object({
@@ -39,7 +40,8 @@ const formSchema = z.object({
 
 export const AI = ({
     chapterId,
-    title
+    title,
+    transcript
 }: AIProps ) => {
     
     const session = useSession();
@@ -75,7 +77,7 @@ export const AI = ({
                 messages: [
                     { 
                         role: 'user',
-                        content: `You are a helpful chatbot that provides answers strictly related to the title of the current chapter. Only respond with information relevant to the chapter's topic. If the user's question is unrelated, politely redirect them to focus on the chapter's title. The current chapter is titled: ${title}
+                        content: `You are a helpful chatbot that provides answers strictly related to the transcript and title of the current chapter. Only respond with information relevant to the chapter's topic. If the user's question is unrelated, politely redirect them to focus on the chapter's title. The current chapter is titled: ${title} and transcript of the chpater is ${transcript}
                                 Question ${prompt}`,
                     }
                 ],
